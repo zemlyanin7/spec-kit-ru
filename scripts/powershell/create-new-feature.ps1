@@ -82,7 +82,7 @@ if ($hasGit) {
         Write-Warning "Не удалось создать git-ветку: $branchName"
     }
 } else {
-    Write-Warning "[specify] Предупреждение: git-репозиторий не обнаружен; создание ветки $branchName пропущено"
+    Write-Warning "[specify-ru] Предупреждение: git-репозиторий не обнаружен; создание ветки $branchName пропущено"
 }
 
 $featureDir = Join-Path $specsDir $branchName

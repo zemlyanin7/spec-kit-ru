@@ -73,7 +73,7 @@ BRANCH_NAME="${FEATURE_NUM}-${WORDS}"
 if [ "$HAS_GIT" = true ]; then
     git checkout -b "$BRANCH_NAME"
 else
-    >&2 echo "[specify] Предупреждение: git-репозиторий не обнаружен; создание ветки $BRANCH_NAME пропущено"
+    >&2 echo "[specify-ru] Предупреждение: git-репозиторий не обнаружен; создание ветки $BRANCH_NAME пропущено"
 fi
 
 FEATURE_DIR="$SPECS_DIR/$BRANCH_NAME"

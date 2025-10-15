@@ -111,7 +111,7 @@ function Validate-Environment {
     }
     if (-not (Test-Path $TEMPLATE_FILE)) {
         Write-Err "Шаблон не найден: $TEMPLATE_FILE"
-        Write-Info 'Запустите specify init, чтобы создать .specify/templates, или добавьте туда agent-file-template.md.'
+        Write-Info 'Запустите specify-ru init, чтобы создать .specify/templates, или добавьте туда agent-file-template.md.'
         exit 1
     }
 }

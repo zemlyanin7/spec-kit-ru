@@ -88,20 +88,20 @@ if ($PathsOnly) {
 # Проверяем обязательные каталоги и файлы
 if (-not (Test-Path $paths.FEATURE_DIR -PathType Container)) {
     Write-Output "ERROR: Каталог фичи не найден: $($paths.FEATURE_DIR)"
-    Write-Output "Сначала выполните /speckit.specify, чтобы создать структуру фичи."
+    Write-Output "Сначала выполните /specify-ru.specify, чтобы создать структуру фичи."
     exit 1
 }
 
 if (-not (Test-Path $paths.IMPL_PLAN -PathType Leaf)) {
     Write-Output "ERROR: plan.md не найден в $($paths.FEATURE_DIR)"
-    Write-Output "Сначала выполните /speckit.plan, чтобы создать план реализации."
+    Write-Output "Сначала выполните /specify-ru.plan, чтобы создать план реализации."
     exit 1
 }
 
 # Проверяем наличие tasks.md при необходимости
 if ($RequireTasks -and -not (Test-Path $paths.TASKS -PathType Leaf)) {
     Write-Output "ERROR: tasks.md не найден в $($paths.FEATURE_DIR)"
-    Write-Output "Сначала выполните /speckit.tasks, чтобы создать список задач."
+    Write-Output "Сначала выполните /specify-ru.tasks, чтобы создать список задач."
     exit 1
 }
 

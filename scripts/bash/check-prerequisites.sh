@@ -102,20 +102,20 @@ fi
 # Проверяем обязательные каталоги и файлы
 if [[ ! -d "$FEATURE_DIR" ]]; then
     echo "ERROR: Каталог фичи не найден: $FEATURE_DIR" >&2
-    echo "Сначала выполните /speckit.specify, чтобы создать структуру фичи." >&2
+    echo "Сначала выполните /specify-ru.specify, чтобы создать структуру фичи." >&2
     exit 1
 fi
 
 if [[ ! -f "$IMPL_PLAN" ]]; then
     echo "ERROR: plan.md не найден в $FEATURE_DIR" >&2
-    echo "Сначала выполните /speckit.plan, чтобы создать план реализации." >&2
+    echo "Сначала выполните /specify-ru.plan, чтобы создать план реализации." >&2
     exit 1
 fi
 
 # Проверяем наличие tasks.md при необходимости
 if $REQUIRE_TASKS && [[ ! -f "$TASKS" ]]; then
     echo "ERROR: tasks.md не найден в $FEATURE_DIR" >&2
-    echo "Сначала выполните /speckit.tasks, чтобы создать список задач." >&2
+    echo "Сначала выполните /specify-ru.tasks, чтобы создать список задач." >&2
     exit 1
 fi
 

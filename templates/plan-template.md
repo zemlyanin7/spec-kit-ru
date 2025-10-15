@@ -3,7 +3,7 @@
 **Ветка**: `[###-feature-name]` | **Дата**: [DATE] | **Спецификация**: [link]  
 **Входные данные**: Спецификация фичи из `/specs/[###-feature-name]/spec.md`
 
-**Примечание**: Этот шаблон заполняется командой `/speckit.plan`. Подробности выполнения смотрите в `.specify/templates/commands/plan.md`.
+**Примечание**: Этот шаблон заполняется командой `/specify-ru.plan`. Подробности выполнения смотрите в `.specify/templates/commands/plan.md`.
 
 ## Краткое описание
 
@@ -38,12 +38,12 @@
 
 ```
 specs/[###-feature]/
-├── plan.md              # Этот файл (результат команды /speckit.plan)
-├── research.md          # Выход Фазы 0 (/speckit.plan)
-├── data-model.md        # Выход Фазы 1 (/speckit.plan)
-├── quickstart.md        # Выход Фазы 1 (/speckit.plan)
-├── contracts/           # Выход Фазы 1 (/speckit.plan)
-└── tasks.md             # Выход Фазы 2 (/speckit.tasks — НЕ создаётся /speckit.plan)
+├── plan.md              # Этот файл (результат команды /specify-ru.plan)
+├── research.md          # Выход Фазы 0 (/specify-ru.plan)
+├── data-model.md        # Выход Фазы 1 (/specify-ru.plan)
+├── quickstart.md        # Выход Фазы 1 (/specify-ru.plan)
+├── contracts/           # Выход Фазы 1 (/specify-ru.plan)
+└── tasks.md             # Выход Фазы 2 (/specify-ru.tasks — НЕ создаётся /specify-ru.plan)
 ```
 
 ### Исходный код (корень репозитория)

@@ -1,6 +1,6 @@
 # Руководство по локальной разработке
 
-Это руководство показывает, как итеративно работать с CLI `specify` локально, не публикуя релиз и не коммитя изменения в `main`.
+Это руководство показывает, как итеративно работать с CLI `specify-ru` локально, не публикуя релиз и не коммитя изменения в `main`.
 
 > Скрипты теперь доступны и в Bash (`.sh`), и в PowerShell (`.ps1`) вариантах. CLI автоматически выбирает вариант в зависимости от ОС, если не передан флаг `--script sh|ps`.
 
@@ -41,8 +41,8 @@ source .venv/bin/activate  # или в PowerShell на Windows: .venv\Scripts\Ac
 # Установка проекта в режиме editable
 uv pip install -e .
 
-# Теперь доступна точка входа 'specify'
-specify --help
+# Теперь доступна точка входа 'specify-ru'
+specify-ru --help
 ```
 
 Повторный запуск после изменений кода не требует переустановки благодаря режиму editable.
@@ -52,7 +52,7 @@ specify --help
 `uvx` может выполняться из локального пути (или Git-ссылки), чтобы моделировать сценарии пользователей:
 
 ```bash
-uvx --from . specify init demo-uvx --ai copilot --ignore-agent-tools --script sh
+uvx --from . specify-ru init demo-uvx --ai copilot --ignore-agent-tools --script sh
 ```
 
 Можно указать uvx на конкретную ветку без слияния:
@@ -60,7 +60,7 @@ uvx --from . specify init demo-uvx --ai copilot --ignore-agent-tools --script sh
 ```bash
 # Сначала запушьте рабочую ветку
 git push origin your-feature-branch
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git@your-feature-branch specify init demo-branch-test --script ps
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git@your-feature-branch specify-ru init demo-branch-test --script ps
 ```
 
 ### 4a. Абсолютный путь для uvx (запуск из любого места)
@@ -68,21 +68,21 @@ uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git@your-feature-branch
 Если вы в другой директории, используйте абсолютный путь вместо `.`:
 
 ```bash
-uvx --from /mnt/c/GitHub/spec-kit-ru specify --help
-uvx --from /mnt/c/GitHub/spec-kit-ru specify init demo-anywhere --ai copilot --ignore-agent-tools --script sh
+uvx --from /mnt/c/GitHub/spec-kit-ru specify-ru --help
+uvx --from /mnt/c/GitHub/spec-kit-ru specify-ru init demo-anywhere --ai copilot --ignore-agent-tools --script sh
 ```
 
 Для удобства определите переменную окружения:
 ```bash
 export SPEC_KIT_SRC=/mnt/c/GitHub/spec-kit-ru
-uvx --from "$SPEC_KIT_SRC" specify init demo-env --ai copilot --ignore-agent-tools --script ps
+uvx --from "$SPEC_KIT_SRC" specify-ru init demo-env --ai copilot --ignore-agent-tools --script ps
 ```
 
 (Необязательно) Определите shell-функцию:
 ```bash
-specify-dev() { uvx --from /mnt/c/GitHub/spec-kit-ru specify "$@"; }
+specify-ru-dev() { uvx --from /mnt/c/GitHub/spec-kit-ru specify-ru "$@"; }
 # Затем
-specify-dev --help
+specify-ru-dev --help
 ```
 
 ## 5. Проверка прав на скрипты
@@ -127,8 +127,8 @@ python -m src.specify_cli init --here --ai claude --ignore-agent-tools --script 
 Если во время экспериментов нужно обойти проверку TLS:
 
 ```bash
-specify check --skip-tls
-specify init demo --skip-tls --ai gemini --ignore-agent-tools --script ps
+specify-ru check --skip-tls
+specify-ru init demo --skip-tls --ai gemini --ignore-agent-tools --script ps
 ```
 (Используйте только для локальных экспериментов.)
 
@@ -137,10 +137,10 @@ specify init demo --skip-tls --ai gemini --ignore-agent-tools --script ps
 | Действие | Команда |
 |----------|---------|
 | Запуск CLI напрямую | `python -m src.specify_cli --help` |
-| Установка в editable | `uv pip install -e .`, затем `specify ...` |
-| Локальный uvx (корень репо) | `uvx --from . specify ...` |
-| Локальный uvx (абсолютный путь) | `uvx --from /mnt/c/GitHub/spec-kit-ru specify ...` |
-| uvx с Git-ветки | `uvx --from git+URL@branch specify ...` |
+| Установка в editable | `uv pip install -e .`, затем `specify-ru ...` |
+| Локальный uvx (корень репо) | `uvx --from . specify-ru ...` |
+| Локальный uvx (абсолютный путь) | `uvx --from /mnt/c/GitHub/spec-kit-ru specify-ru ...` |
+| uvx с Git-ветки | `uvx --from git+URL@branch specify-ru ...` |
 | Сборка wheel | `uv build` |
 
 ## 11. Очистка

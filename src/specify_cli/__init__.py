@@ -10,18 +10,18 @@
 # ]
 # ///
 """
-Specify CLI — инструмент для подготовки проектов по методологии Spec-Driven Development.
+Specify-ru CLI — инструмент для подготовки проектов по методологии Spec-Driven Development.
 
 Использование:
-    uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <имя-проекта>
-    uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init .
-    uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init --here
+    uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <имя-проекта>
+    uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init .
+    uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init --here
 
 Или установите глобально:
-    uv tool install specify-cli --from git+https://github.com/zemlyanin7/spec-kit-ru.git
-    specify init <имя-проекта>
-    specify init .
-    specify init --here
+    uv tool install specify-ru-cli --from git+https://github.com/zemlyanin7/spec-kit-ru.git
+    specify-ru init <имя-проекта>
+    specify-ru init .
+    specify-ru init --here
 """
 
 import os
@@ -352,7 +352,7 @@ class BannerGroup(TyperGroup):
 
 
 app = typer.Typer(
-    name="specify",
+    name="specify-ru",
     help="Инструмент подготовки проектов по методологии Spec-Driven Development",
     add_completion=False,
     invoke_without_command=True,
@@ -378,7 +378,7 @@ def callback(ctx: typer.Context):
     """Показывать баннер, если команда вызвана без подкоманд."""
     if ctx.invoked_subcommand is None and "--help" not in sys.argv and "-h" not in sys.argv:
         show_banner()
-        console.print(Align.center("[dim]Введите 'specify --help', чтобы увидеть справку[/dim]"))
+        console.print(Align.center("[dim]Введите 'specify-ru --help', чтобы увидеть справку[/dim]"))
         console.print()
 
 def run_command(cmd: list[str], check_return: bool = True, capture: bool = False, shell: bool = False) -> Optional[str]:
@@ -810,17 +810,17 @@ def init(
     6. Настройку команд для ИИ-агента (при необходимости)
     
     Примеры:
-        specify init my-project
-        specify init my-project --ai claude
-        specify init my-project --ai copilot --no-git
-        specify init --ignore-agent-tools my-project
-        specify init . --ai claude         # Инициализация в текущем каталоге
-        specify init .                     # Текущий каталог (интерактивный выбор ИИ)
-        specify init --here --ai claude    # Альтернативный синтаксис для текущего каталога
-        specify init --here --ai codex
-        specify init --here --ai codebuddy
-        specify init --here
-        specify init --here --force        # Пропустить подтверждение, если каталог не пуст
+        specify-ru init my-project
+        specify-ru init my-project --ai claude
+        specify-ru init my-project --ai copilot --no-git
+        specify-ru init --ignore-agent-tools my-project
+        specify-ru init . --ai claude         # Инициализация в текущем каталоге
+        specify-ru init .                     # Текущий каталог (интерактивный выбор ИИ)
+        specify-ru init --here --ai claude    # Альтернативный синтаксис для текущего каталога
+        specify-ru init --here --ai codex
+        specify-ru init --here --ai codebuddy
+        specify-ru init --here
+        specify-ru init --here --force        # Пропустить подтверждение, если каталог не пуст
     """
 
     show_banner()
@@ -1062,11 +1062,11 @@ def init(
 
     steps_lines.append(f"{step_num}. Используйте slash-команды в своём ИИ-агенте:")
 
-    steps_lines.append("   2.1 [cyan]/speckit.constitution[/] — зафиксировать конституцию проекта")
-    steps_lines.append("   2.2 [cyan]/speckit.specify[/] — создать базовую спецификацию")
-    steps_lines.append("   2.3 [cyan]/speckit.plan[/] — подготовить план реализации")
-    steps_lines.append("   2.4 [cyan]/speckit.tasks[/] — сформировать список задач")
-    steps_lines.append("   2.5 [cyan]/speckit.implement[/] — выполнить реализацию")
+    steps_lines.append("   2.1 [cyan]/specify-ru.constitution[/] — зафиксировать конституцию проекта")
+    steps_lines.append("   2.2 [cyan]/specify-ru.specify[/] — создать базовую спецификацию")
+    steps_lines.append("   2.3 [cyan]/specify-ru.plan[/] — подготовить план реализации")
+    steps_lines.append("   2.4 [cyan]/specify-ru.tasks[/] — сформировать список задач")
+    steps_lines.append("   2.5 [cyan]/specify-ru.implement[/] — выполнить реализацию")
 
     steps_panel = Panel("\n".join(steps_lines), title="Следующие шаги", border_style="cyan", padding=(1,2))
     console.print()
@@ -1075,9 +1075,9 @@ def init(
     enhancement_lines = [
         "Дополнительные команды для улучшения спецификаций [bright_black](качество и уверенность)[/bright_black]",
         "",
-        f"○ [cyan]/speckit.clarify[/] [bright_black](опционально)[/bright_black] — структурированные вопросы для прояснения неопределённостей до планирования (выполните до [cyan]/speckit.plan[/])",
-        f"○ [cyan]/speckit.analyze[/] [bright_black](опционально)[/bright_black] — отчёт о согласованности артефактов (после [cyan]/speckit.tasks[/], перед [cyan]/speckit.implement[/])",
-        f"○ [cyan]/speckit.checklist[/] [bright_black](опционально)[/bright_black] — чек-листы качества для проверки полноты и ясности требований (после [cyan]/speckit.plan[/])"
+        f"○ [cyan]/specify-ru.clarify[/] [bright_black](опционально)[/bright_black] — структурированные вопросы для прояснения неопределённостей до планирования (выполните до [cyan]/specify-ru.plan[/])",
+        f"○ [cyan]/specify-ru.analyze[/] [bright_black](опционально)[/bright_black] — отчёт о согласованности артефактов (после [cyan]/specify-ru.tasks[/], перед [cyan]/specify-ru.implement[/])",
+        f"○ [cyan]/specify-ru.checklist[/] [bright_black](опционально)[/bright_black] — чек-листы качества для проверки полноты и ясности требований (после [cyan]/specify-ru.plan[/])"
     ]
     enhancements_panel = Panel("\n".join(enhancement_lines), title="Дополнительные команды", border_style="cyan", padding=(1,2))
     console.print()
@@ -1110,7 +1110,7 @@ def check():
 
     console.print(tracker.render())
 
-    console.print("\n[bold green]Specify CLI готов к работе![/bold green]")
+    console.print("\n[bold green]Specify-ru CLI готов к работе![/bold green]")
 
     if not git_ok:
         console.print("[dim]Совет: установите git для управления репозиторием[/dim]")

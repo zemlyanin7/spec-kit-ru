@@ -4,13 +4,13 @@
 **Создан**: [DATE]
 **Фича**: [Ссылка на spec.md или другую документацию]
 
-**Примечание**: Этот чек-лист генерируется командой `/speckit.checklist` на основе контекста и требований фичи.
+**Примечание**: Этот чек-лист генерируется командой `/specify-ru.checklist` на основе контекста и требований фичи.
 
 <!-- 
   ============================================================================
   IMPORTANT: The checklist items below are SAMPLE ITEMS for illustration only.
   
-  The /speckit.checklist command MUST replace these with actual items based on:
+  The /specify-ru.checklist command MUST replace these with actual items based on:
   - User's specific checklist request
   - Feature requirements from spec.md
   - Technical context from plan.md

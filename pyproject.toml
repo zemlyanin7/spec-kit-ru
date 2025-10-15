@@ -1,7 +1,7 @@
 [project]
-name = "specify-cli"
-version = "0.0.20"
-description = "Specify CLI — часть GitHub Spec Kit. Инструмент для подготовки проектов к разработке, управляемой спецификациями (SDD)."
+name = "specify-ru-cli"
+version = "0.1.0"
+description = "Specify-ru CLI — часть GitHub Spec Kit. Инструмент для подготовки проектов к разработке, управляемой спецификациями (SDD)."
 requires-python = ">=3.11"
 dependencies = [
     "typer",
@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-specify = "specify_cli:main"
+specify-ru = "specify_cli:main"
 
 [build-system]
 requires = ["hatchling"]

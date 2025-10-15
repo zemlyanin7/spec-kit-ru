@@ -15,15 +15,15 @@
 Самый простой способ начать — инициализировать новый проект:
 
 ```bash
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <PROJECT_NAME>
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <PROJECT_NAME>
 ```
 
 Либо инициализировать проект в текущей директории:
 
 ```bash
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init .
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init .
 # или используйте флаг --here
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init --here
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init --here
 ```
 
 ### Указание AI-агента
@@ -31,9 +31,9 @@ uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init --here
 Вы можете заранее выбрать AI-агента при инициализации:
 
 ```bash
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <project_name> --ai claude
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <project_name> --ai gemini
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <project_name> --ai copilot
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <project_name> --ai claude
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <project_name> --ai gemini
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <project_name> --ai copilot
 ```
 
 ### Выбор типа скриптов (Shell или PowerShell)
@@ -47,8 +47,8 @@ uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <proje
 
 Принудительный выбор конкретного типа скриптов:
 ```bash
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <project_name> --script sh
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <project_name> --script ps
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <project_name> --script sh
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <project_name> --script ps
 ```
 
 ### Пропуск проверки инструментов агента
@@ -56,15 +56,15 @@ uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <proje
 Если хотите получить шаблоны, не проверяя наличие необходимых инструментов:
 
 ```bash
-uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <project_name> --ai claude --ignore-agent-tools
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify-ru init <project_name> --ai claude --ignore-agent-tools
 ```
 
 ## Проверка
 
 После инициализации вы должны увидеть следующие команды в своём AI-агенте:
-- `/speckit.specify` — создание спецификаций
-- `/speckit.plan` — генерация планов реализации  
-- `/speckit.tasks` — декомпозиция на конкретные задачи
+- `/specify-ru.specify` — создание спецификаций
+- `/specify-ru.plan` — генерация планов реализации  
+- `/specify-ru.tasks` — декомпозиция на конкретные задачи
 
 Каталог `.specify/scripts` будет содержать как `.sh`, так и `.ps1` скрипты.
 

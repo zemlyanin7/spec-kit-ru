@@ -1,32 +1,32 @@
 #!/usr/bin/env bash
-# Common functions and variables for all scripts
+# Общие функции и переменные для всех скриптов
 
-# Get repository root, with fallback for non-git repositories
+# Определение корня репозитория с учётом возможного отсутствия git
 get_repo_root() {
     if git rev-parse --show-toplevel >/dev/null 2>&1; then
         git rev-parse --show-toplevel
     else
-        # Fall back to script location for non-git repos
+        # Резервный вариант — путь к каталогу скрипта (если репозиторий без git)
         local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
         (cd "$script_dir/../../.." && pwd)
     fi
 }
 
-# Get current branch, with fallback for non-git repositories
+# Получение текущей ветки с поддержкой репозиториев без git
 get_current_branch() {
-    # First check if SPECIFY_FEATURE environment variable is set
+    # Сначала проверяем переменную окружения SPECIFY_FEATURE
     if [[ -n "${SPECIFY_FEATURE:-}" ]]; then
         echo "$SPECIFY_FEATURE"
         return
     fi
     
-    # Then check git if available
+    # Затем пробуем получить ветку через git
     if git rev-parse --abbrev-ref HEAD >/dev/null 2>&1; then
         git rev-parse --abbrev-ref HEAD
         return
     fi
     
-    # For non-git repos, try to find the latest feature directory
+    # Для репозиториев без git ищем последний каталог фичи
     local repo_root=$(get_repo_root)
     local specs_dir="$repo_root/specs"
     
@@ -54,10 +54,10 @@ get_current_branch() {
         fi
     fi
     
-    echo "main"  # Final fallback
+    echo "main"  # Последний резервный вариант
 }
 
-# Check if we have git available
+# Проверка наличия git
 has_git() {
     git rev-parse --show-toplevel >/dev/null 2>&1
 }
@@ -66,15 +66,15 @@ check_feature_branch() {
     local branch="$1"
     local has_git_repo="$2"
     
-    # For non-git repos, we can't enforce branch naming but still provide output
+    # В репозиториях без git нельзя требовать именование веток, но выдаём уведомление
     if [[ "$has_git_repo" != "true" ]]; then
-        echo "[specify] Warning: Git repository not detected; skipped branch validation" >&2
+        echo "[specify] Предупреждение: git-репозиторий не обнаружен; проверка названия ветки пропущена" >&2
         return 0
     fi
     
     if [[ ! "$branch" =~ ^[0-9]{3}- ]]; then
-        echo "ERROR: Not on a feature branch. Current branch: $branch" >&2
-        echo "Feature branches should be named like: 001-feature-name" >&2
+        echo "ОШИБКА: Текущая ветка не является фичевой. Текущая ветка: $branch" >&2
+        echo "Фичевые ветки должны называться в формате: 001-nazvanie-fichi" >&2
         return 1
     fi
     

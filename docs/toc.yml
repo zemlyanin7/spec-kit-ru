@@ -1,17 +1,17 @@
-# Home page
-- name: Home
+# Домашняя страница
+- name: Главная
   href: index.md
 
-# Getting started section
-- name: Getting Started
+# Раздел «Начало работы»
+- name: Старт
   items:
-    - name: Installation
+    - name: Установка
       href: installation.md
-    - name: Quick Start
+    - name: Быстрый старт
       href: quickstart.md
 
-# Development workflows
-- name: Development
+# Рабочие процессы разработки
+- name: Разработка
   items:
-    - name: Local Development
+    - name: Локальная разработка
       href: local-development.md

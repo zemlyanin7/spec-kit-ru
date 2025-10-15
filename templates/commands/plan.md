@@ -1,5 +1,5 @@
 ---
-description: Execute the implementation planning workflow using the plan template to generate design artifacts.
+description: Выполнить процесс планирования реализации, используя шаблон плана для генерации проектных артефактов.
 scripts:
   sh: scripts/bash/setup-plan.sh --json
   ps: scripts/powershell/setup-plan.ps1 -Json
@@ -8,79 +8,79 @@ agent_scripts:
   ps: scripts/powershell/update-agent-context.ps1 -AgentType __AGENT__
 ---
 
-## User Input
+## Ввод пользователя
 
 ```text
 $ARGUMENTS
 ```
 
-You **MUST** consider the user input before proceeding (if not empty).
+Вы **ОБЯЗАНЫ** учитывать ввод пользователя, если он не пустой.
 
-## Outline
+## Общий план
 
-1. **Setup**: Run `{SCRIPT}` from repo root and parse JSON for FEATURE_SPEC, IMPL_PLAN, SPECS_DIR, BRANCH. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
+1. **Подготовка**: Запустите `{SCRIPT}` в корне репозитория и извлеките из JSON значения FEATURE_SPEC, IMPL_PLAN, SPECS_DIR, BRANCH. Для аргументов с одинарной кавычкой (например, "I'm Groot") используйте экранирование: `'I'\''m Groot'` или двойные кавычки `"I'm Groot"`.
 
-2. **Load context**: Read FEATURE_SPEC and `/memory/constitution.md`. Load IMPL_PLAN template (already copied).
+2. **Контекст**: Прочитайте FEATURE_SPEC и `/memory/constitution.md`. Шаблон IMPL_PLAN уже скопирован — загрузите его для заполнения.
 
-3. **Execute plan workflow**: Follow the structure in IMPL_PLAN template to:
-   - Fill Technical Context (mark unknowns as "NEEDS CLARIFICATION")
-   - Fill Constitution Check section from constitution
-   - Evaluate gates (ERROR if violations unjustified)
-   - Phase 0: Generate research.md (resolve all NEEDS CLARIFICATION)
-   - Phase 1: Generate data-model.md, contracts/, quickstart.md
-   - Phase 1: Update agent context by running the agent script
-   - Re-evaluate Constitution Check post-design
+3. **Выполните процесс планирования** согласно структуре IMPL_PLAN:
+   - Заполните раздел «Технический контекст», помечая неизвестные значения как "NEEDS CLARIFICATION".
+   - Заполните раздел «Проверка конституции» использованием правил из конституции.
+   - Оцените гейты (ERROR, если нарушения не обоснованы).
+   - Фаза 0: сформируйте `research.md`, разрешите все NEEDS CLARIFICATION.
+   - Фаза 1: сформируйте `data-model.md`, каталог `contracts/`, `quickstart.md`.
+   - Фаза 1: обновите контекст агента, запустив соответствующий скрипт.
+   - Повторно оцените гейты конституции после проектирования.
 
-4. **Stop and report**: Command ends after Phase 2 planning. Report branch, IMPL_PLAN path, and generated artifacts.
+4. **Остановитесь и сообщите результат**: Команда завершается после планирования на Фазе 2. Сообщите ветку, путь к IMPL_PLAN и список созданных артефактов.
 
-## Phases
+## Фазы
 
-### Phase 0: Outline & Research
+### Фаза 0: Структура и исследование
 
-1. **Extract unknowns from Technical Context** above:
-   - For each NEEDS CLARIFICATION → research task
-   - For each dependency → best practices task
-   - For each integration → patterns task
+1. **Выявите неизвестные** из раздела «Технический контекст»:
+   - Для каждого NEEDS CLARIFICATION → задание на исследование
+   - Для каждой зависимости → задача на best practices
+   - Для каждой интеграции → задача на исследование паттернов
 
-2. **Generate and dispatch research agents**:
+2. **Сформируйте задания исследователям**:
    ```
-   For each unknown in Technical Context:
+   Для каждого неизвестного в Technical Context:
      Task: "Research {unknown} for {feature context}"
-   For each technology choice:
+   Для каждой технологической опции:
      Task: "Find best practices for {tech} in {domain}"
    ```
 
-3. **Consolidate findings** in `research.md` using format:
-   - Decision: [what was chosen]
-   - Rationale: [why chosen]
-   - Alternatives considered: [what else evaluated]
+3. **Соберите выводы** в `research.md` с форматом:
+   - Decision: [что выбрано]
+   - Rationale: [почему выбрано]
+   - Alternatives considered: [какие варианты рассматривались]
 
-**Output**: research.md with all NEEDS CLARIFICATION resolved
+**Результат**: research.md без нерешённых NEEDS CLARIFICATION.
 
-### Phase 1: Design & Contracts
+### Фаза 1: Проектирование и контракты
 
-**Prerequisites:** `research.md` complete
+**Предпосылки:** `research.md` завершён.
 
-1. **Extract entities from feature spec** → `data-model.md`:
-   - Entity name, fields, relationships
-   - Validation rules from requirements
-   - State transitions if applicable
+1. **Извлеките сущности** из спецификации → `data-model.md`:
+   - Название сущности, поля, связи.
+   - Правила валидации из требований.
+   - Состояния/переходы, если применимо.
 
-2. **Generate API contracts** from functional requirements:
-   - For each user action → endpoint
-   - Use standard REST/GraphQL patterns
-   - Output OpenAPI/GraphQL schema to `/contracts/`
+2. **Сгенерируйте контракты API** на основе функциональных требований:
+   - Каждое пользовательское действие → endpoint.
+   - Используйте стандартные паттерны REST/GraphQL.
+   - Запишите OpenAPI/GraphQL схему в каталог `/contracts/`.
 
-3. **Agent context update**:
-   - Run `{AGENT_SCRIPT}`
-   - These scripts detect which AI agent is in use
-   - Update the appropriate agent-specific context file
-   - Add only new technology from current plan
-   - Preserve manual additions between markers
+3. **Обновите контекст агента**:
+   - Запустите `{AGENT_SCRIPT}`.
+   - Скрипт автоматически определит активного ИИ-агента.
+   - Обновите соответствующий файл контекста агента.
+   - Добавляйте только технологии, появившиеся в текущем плане.
+   - Сохраните пользовательские дополнения между маркерами.
 
-**Output**: data-model.md, /contracts/*, quickstart.md, agent-specific file
+**Результат**: data-model.md, файлы в `/contracts/`, quickstart.md, обновлённый контекст агента.
 
-## Key rules
+## Ключевые правила
 
-- Use absolute paths
-- ERROR on gate failures or unresolved clarifications
+- Работайте с абсолютными путями.
+- Завершайте выполнение с ошибкой, если гейты конституции не пройдены или остаются нерешённые уточнения.

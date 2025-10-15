@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# Create a new feature
+# Создание новой фичи
 [CmdletBinding()]
 param(
     [switch]$Json,
@@ -9,14 +9,13 @@ param(
 $ErrorActionPreference = 'Stop'
 
 if (-not $FeatureDescription -or $FeatureDescription.Count -eq 0) {
-    Write-Error "Usage: ./create-new-feature.ps1 [-Json] <feature description>"
+    Write-Error "Использование: ./create-new-feature.ps1 [-Json] <описание фичи>"
     exit 1
 }
 $featureDesc = ($FeatureDescription -join ' ').Trim()
 
-# Resolve repository root. Prefer git information when available, but fall back
-# to searching for repository markers so the workflow still functions in repositories that
-# were initialised with --no-git.
+# Определяем корень репозитория. Предпочитаем данные git, но при их отсутствии ищем маркеры репозитория,
+# чтобы workflow работал даже если инициализация выполнена с --no-git.
 function Find-RepositoryRoot {
     param(
         [string]$StartDir,
@@ -31,7 +30,7 @@ function Find-RepositoryRoot {
         }
         $parent = Split-Path $current -Parent
         if ($parent -eq $current) {
-            # Reached filesystem root without finding markers
+            # Достигли корня файловой системы и не нашли маркеры
             return $null
         }
         $current = $parent
@@ -39,7 +38,7 @@ function Find-RepositoryRoot {
 }
 $fallbackRoot = (Find-RepositoryRoot -StartDir $PSScriptRoot)
 if (-not $fallbackRoot) {
-    Write-Error "Error: Could not determine repository root. Please run this script from within the repository."
+    Write-Error "ERROR: Не удалось определить корень репозитория. Запустите скрипт из каталога проекта."
     exit 1
 }
 
@@ -80,10 +79,10 @@ if ($hasGit) {
     try {
         git checkout -b $branchName | Out-Null
     } catch {
-        Write-Warning "Failed to create git branch: $branchName"
+        Write-Warning "Не удалось создать git-ветку: $branchName"
     }
 } else {
-    Write-Warning "[specify] Warning: Git repository not detected; skipped branch creation for $branchName"
+    Write-Warning "[specify] Предупреждение: git-репозиторий не обнаружен; создание ветки $branchName пропущено"
 }
 
 $featureDir = Join-Path $specsDir $branchName
@@ -97,7 +96,7 @@ if (Test-Path $template) {
     New-Item -ItemType File -Path $specFile | Out-Null 
 }
 
-# Set the SPECIFY_FEATURE environment variable for the current session
+# Устанавливаем переменную окружения SPECIFY_FEATURE для текущей сессии
 $env:SPECIFY_FEATURE = $branchName
 
 if ($Json) {
@@ -113,5 +112,5 @@ if ($Json) {
     Write-Output "SPEC_FILE: $specFile"
     Write-Output "FEATURE_NUM: $featureNum"
     Write-Output "HAS_GIT: $hasGit"
-    Write-Output "SPECIFY_FEATURE environment variable set to: $branchName"
+    Write-Output "Переменная окружения SPECIFY_FEATURE установлена в: $branchName"
 }

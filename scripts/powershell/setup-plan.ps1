@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# Setup implementation plan for a feature
+# Подготовка плана реализации для фичи
 
 [CmdletBinding()]
 param(
@@ -9,40 +9,40 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# Show help if requested
+# Выводим справку по запросу
 if ($Help) {
-    Write-Output "Usage: ./setup-plan.ps1 [-Json] [-Help]"
-    Write-Output "  -Json     Output results in JSON format"
-    Write-Output "  -Help     Show this help message"
+    Write-Output "Использование: ./setup-plan.ps1 [-Json] [-Help]"
+    Write-Output "  -Json     вывод в формате JSON"
+    Write-Output "  -Help     показать эту справку"
     exit 0
 }
 
-# Load common functions
+# Подключаем общие функции
 . "$PSScriptRoot/common.ps1"
 
-# Get all paths and variables from common functions
+# Получаем пути и переменные из общего модуля
 $paths = Get-FeaturePathsEnv
 
-# Check if we're on a proper feature branch (only for git repos)
+# Проверяем, что находимся во фичевой ветке (для git-репозиториев)
 if (-not (Test-FeatureBranch -Branch $paths.CURRENT_BRANCH -HasGit $paths.HAS_GIT)) { 
     exit 1 
 }
 
-# Ensure the feature directory exists
+# Гарантируем наличие каталога фичи
 New-Item -ItemType Directory -Path $paths.FEATURE_DIR -Force | Out-Null
 
-# Copy plan template if it exists, otherwise note it or create empty file
+# Копируем шаблон плана при наличии, иначе создаём пустой файл
 $template = Join-Path $paths.REPO_ROOT '.specify/templates/plan-template.md'
 if (Test-Path $template) { 
     Copy-Item $template $paths.IMPL_PLAN -Force
-    Write-Output "Copied plan template to $($paths.IMPL_PLAN)"
+    Write-Output "Скопирован шаблон плана в $($paths.IMPL_PLAN)"
 } else {
-    Write-Warning "Plan template not found at $template"
-    # Create a basic plan file if template doesn't exist
+    Write-Warning "Шаблон плана не найден по пути $template"
+    # Создаём базовый файл плана, если шаблон отсутствует
     New-Item -ItemType File -Path $paths.IMPL_PLAN -Force | Out-Null
 }
 
-# Output results
+# Формируем вывод
 if ($Json) {
     $result = [PSCustomObject]@{ 
         FEATURE_SPEC = $paths.FEATURE_SPEC

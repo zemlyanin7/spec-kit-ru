@@ -1,62 +1,62 @@
 # Spec Kit
 
-*Build high-quality software faster.*
+*Создавайте высококачественное ПО быстрее.*
 
-**An effort to allow organizations to focus on product scenarios rather than writing undifferentiated code with the help of Spec-Driven Development.**
+**Инициатива, позволяющая организациям сосредоточиться на продуктовых сценариях, а не на написании несущего одинаковую ценность кода, благодаря разработке, управляемой спецификациями.**
 
-## What is Spec-Driven Development?
+## Что такое разработка, управляемая спецификациями?
 
-Spec-Driven Development **flips the script** on traditional software development. For decades, code has been king — specifications were just scaffolding we built and discarded once the "real work" of coding began. Spec-Driven Development changes this: **specifications become executable**, directly generating working implementations rather than just guiding them.
+Подход Spec-Driven Development **переворачивает традиционный процесс** создания программного обеспечения. На протяжении десятилетий код был «королём» — спецификации служили лишь строительными лесами, которые мы убирали, как только начиналась «реальная работа» над кодом. Spec-Driven Development меняет это: **спецификации становятся исполнимыми**, напрямую порождая рабочие реализации, а не просто направляя их.
 
-## Getting Started
+## Как начать работу
 
-- [Installation Guide](installation.md)
-- [Quick Start Guide](quickstart.md)
-- [Local Development](local-development.md)
+- [Руководство по установке](installation.md)
+- [Краткое руководство по запуску](quickstart.md)
+- [Локальная разработка](local-development.md)
 
-## Core Philosophy
+## Базовая философия
 
-Spec-Driven Development is a structured process that emphasizes:
+Spec-Driven Development — это структурированный процесс, который делает упор на:
 
-- **Intent-driven development** where specifications define the "_what_" before the "_how_"
-- **Rich specification creation** using guardrails and organizational principles
-- **Multi-step refinement** rather than one-shot code generation from prompts
-- **Heavy reliance** on advanced AI model capabilities for specification interpretation
+- **Разработку, основанную на намерениях**, где спецификации определяют «что» до «как»
+- **Создание содержательных спецификаций** с использованием ограничителей и организационных принципов
+- **Многошаговую доработку**, а не генерацию кода в один присест по запросу
+- **Широкое использование** возможностей продвинутых моделей ИИ для интерпретации спецификаций
 
-## Development Phases
+## Фазы разработки
 
-| Phase | Focus | Key Activities |
-|-------|-------|----------------|
-| **0-to-1 Development** ("Greenfield") | Generate from scratch | <ul><li>Start with high-level requirements</li><li>Generate specifications</li><li>Plan implementation steps</li><li>Build production-ready applications</li></ul> |
-| **Creative Exploration** | Parallel implementations | <ul><li>Explore diverse solutions</li><li>Support multiple technology stacks & architectures</li><li>Experiment with UX patterns</li></ul> |
-| **Iterative Enhancement** ("Brownfield") | Brownfield modernization | <ul><li>Add features iteratively</li><li>Modernize legacy systems</li><li>Adapt processes</li></ul> |
+| Фаза | Фокус | Ключевые действия |
+|------|-------|-------------------|
+| **Разработка 0-to-1** («Greenfield») | Создание с нуля | <ul><li>Начать с высокоуровневых требований</li><li>Сгенерировать спецификации</li><li>Спланировать шаги по реализации</li><li>Собрать приложения, готовые к продакшену</li></ul> |
+| **Креативное исследование** | Параллельные реализации | <ul><li>Исследовать разнообразные решения</li><li>Поддерживать несколько стеков технологий и архитектур</li><li>Экспериментировать с UX-паттернами</li></ul> |
+| **Итеративное улучшение** («Brownfield») | Модернизация проектов Brownfield | <ul><li>Добавлять функции итеративно</li><li>Модернизировать унаследованные системы</li><li>Адаптировать процессы</li></ul> |
 
-## Experimental Goals
+## Экспериментальные цели
 
-Our research and experimentation focus on:
+Наши исследования и эксперименты сосредоточены на следующем:
 
-### Technology Independence
-- Create applications using diverse technology stacks
-- Validate the hypothesis that Spec-Driven Development is a process not tied to specific technologies, programming languages, or frameworks
+### Технологическая независимость
+- Создание приложений на разнообразных технологических стеках
+- Подтверждение гипотезы, что Spec-Driven Development — это процесс, не привязанный к конкретным технологиям, языкам программирования или фреймворкам
 
-### Enterprise Constraints
-- Demonstrate mission-critical application development
-- Incorporate organizational constraints (cloud providers, tech stacks, engineering practices)
-- Support enterprise design systems and compliance requirements
+### Корпоративные ограничения
+- Демонстрация разработки миссионно критичных приложений
+- Учет организационных ограничений (облачные провайдеры, технологические стеки, инженерные практики)
+- Поддержка корпоративных дизайн-систем и требований соответствия
 
-### User-Centric Development
-- Build applications for different user cohorts and preferences
-- Support various development approaches (from vibe-coding to AI-native development)
+### Ориентация на пользователей
+- Создание приложений для разных групп пользователей и их предпочтений
+- Поддержка разнообразных подходов к разработке (от vibe-coding до полностью AI-ориентированной разработки)
 
-### Creative & Iterative Processes
-- Validate the concept of parallel implementation exploration
-- Provide robust iterative feature development workflows
-- Extend processes to handle upgrades and modernization tasks
+### Креативные и итеративные процессы
+- Подтверждение концепции параллельного исследования реализаций
+- Предоставление устойчивых рабочих процессов итеративной разработки функций
+- Расширение процессов для управления обновлениями и задачами модернизации
 
-## Contributing
+## Вклад
 
-Please see our [Contributing Guide](https://github.com/github/spec-kit/blob/main/CONTRIBUTING.md) for information on how to contribute to this project.
+См. нашу [инструкцию по внесению вклада](https://github.com/zemlyanin7/spec-kit-ru/blob/main/CONTRIBUTING.md) для подробной информации о том, как помочь проекту.
 
-## Support
+## Поддержка
 
-For support, please check our [Support Guide](https://github.com/github/spec-kit/blob/main/SUPPORT.md) or open an issue on GitHub.
+Для получения поддержки ознакомьтесь с [руководством по поддержке](https://github.com/zemlyanin7/spec-kit-ru/blob/main/SUPPORT.md) или создайте issue на GitHub.

@@ -1,19 +1,19 @@
-# Support 
+# Поддержка
 
-## How to file issues and get help
+## Как сообщить о проблеме и получить помощь
 
-This project uses GitHub issues to track bugs and feature requests. Please search the existing issues before filing new issues to avoid duplicates. For new issues, file your bug or feature request as a new issue.
+Для отслеживания ошибок и запросов фич проект использует GitHub Issues. Перед созданием нового обращения поищите существующие, чтобы избежать дублей. Если подходящего issue нет, создайте новое, описав баг или пожелание.
 
-For help or questions about using this project, please:
+По вопросам использования Spec Kit:
 
-- Open a [GitHub issue](https://github.com/github/spec-kit/issues/new) for bug reports, feature requests, or questions about the Spec-Driven Development methodology
-- Check the [comprehensive guide](./spec-driven.md) for detailed documentation on the Spec-Driven Development process
-- Review the [README](./README.md) for getting started instructions and troubleshooting tips
+- создайте [GitHub issue](https://github.com/zemlyanin7/spec-kit-ru/issues/new) — для багрепортов, фич-реквестов и вопросов по методологии SDD;
+- изучите [подробное руководство](./spec-driven.md), где описан полный процесс Spec-Driven Development;
+- посмотрите [README](./README.md) для инструкций по запуску и советов по устранению неполадок.
 
-## Project Status
+## Статус проекта
 
-**Spec Kit** is under active development and maintained by GitHub staff **AND THE COMMUNITY**. We will do our best to respond to support, feature requests, and community questions in a timely manner.
+**Spec Kit** активно развивается и поддерживается командой GitHub **и сообществом**. Мы постараемся оперативно отвечать на запросы, пожелания и вопросы.
 
-## GitHub Support Policy
+## Политика поддержки GitHub
 
-Support for this project is limited to the resources listed above.
+Поддержка ограничивается перечисленными выше ресурсами.

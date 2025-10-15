@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# Common PowerShell functions analogous to common.sh
+# Общие PowerShell-функции, аналогичные common.sh
 
 function Get-RepoRoot {
     try {
@@ -8,30 +8,30 @@ function Get-RepoRoot {
             return $result
         }
     } catch {
-        # Git command failed
+        # Команда git завершилась с ошибкой
     }
     
-    # Fall back to script location for non-git repos
+    # Резервный вариант — каталог скрипта для репозиториев без git
     return (Resolve-Path (Join-Path $PSScriptRoot "../../..")).Path
 }
 
 function Get-CurrentBranch {
-    # First check if SPECIFY_FEATURE environment variable is set
+    # Сначала проверяем переменную окружения SPECIFY_FEATURE
     if ($env:SPECIFY_FEATURE) {
         return $env:SPECIFY_FEATURE
     }
     
-    # Then check git if available
+    # Затем пробуем получить ветку через git
     try {
         $result = git rev-parse --abbrev-ref HEAD 2>$null
         if ($LASTEXITCODE -eq 0) {
             return $result
         }
     } catch {
-        # Git command failed
+        # Команда git завершилась с ошибкой
     }
     
-    # For non-git repos, try to find the latest feature directory
+    # Для репозиториев без git ищем последний каталог фичи
     $repoRoot = Get-RepoRoot
     $specsDir = Join-Path $repoRoot "specs"
     
@@ -54,7 +54,7 @@ function Get-CurrentBranch {
         }
     }
     
-    # Final fallback
+    # Последний резервный вариант
     return "main"
 }
 
@@ -73,15 +73,15 @@ function Test-FeatureBranch {
         [bool]$HasGit = $true
     )
     
-    # For non-git repos, we can't enforce branch naming but still provide output
+    # В репозиториях без git нельзя требовать именование веток, но выводим предупреждение
     if (-not $HasGit) {
-        Write-Warning "[specify] Warning: Git repository not detected; skipped branch validation"
+        Write-Warning "[specify] Предупреждение: git-репозиторий не обнаружен; проверка названия ветки пропущена"
         return $true
     }
     
     if ($Branch -notmatch '^[0-9]{3}-') {
-        Write-Output "ERROR: Not on a feature branch. Current branch: $Branch"
-        Write-Output "Feature branches should be named like: 001-feature-name"
+        Write-Output "ERROR: Текущая ветка не является фичевой. Текущая ветка: $Branch"
+        Write-Output "Фичевые ветки должны называться в формате: 001-nazvanie-fichi"
         return $false
     }
     return $true

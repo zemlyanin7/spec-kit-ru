@@ -56,13 +56,13 @@
     "cleanupCacheHistory": false,
     "disableGitFeatures": false,
     "globalMetadata": {
-      "_appTitle": "Spec Kit Documentation",
+      "_appTitle": "Документация Spec Kit",
       "_appName": "Spec Kit",
-      "_appFooter": "Spec Kit - A specification-driven development toolkit",
+      "_appFooter": "Spec Kit — набор инструментов для разработки, управляемой спецификациями",
       "_enableSearch": true,
       "_disableContribution": false,
       "_gitContribute": {
-        "repo": "https://github.com/github/spec-kit",
+        "repo": "https://github.com/zemlyanin7/spec-kit-ru",
         "branch": "main"
       }
     }

@@ -1,110 +1,98 @@
-## Contributing to Spec Kit
+## Как внести вклад в Spec Kit
 
-Hi there! We're thrilled that you'd like to contribute to Spec Kit. Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE).
+Привет! Мы рады, что вы хотите помочь развитию Spec Kit. Все вклады в проект [публикуются](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) в соответствии с [открытой лицензией](LICENSE).
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Обратите внимание: проект распространяется вместе с [Кодексом поведения](CODE_OF_CONDUCT.md). Участвуя, вы соглашаетесь соблюдать его правила.
 
-## Prerequisites for running and testing code
+## Предварительные требования для запуска и тестирования
 
-These are one time installations required to be able to test your changes locally as part of the pull request (PR) submission process.
+Эти инструменты нужно установить один раз, чтобы вы могли локально проверить изменения перед отправкой pull request (PR):
 
-1. Install [Python 3.11+](https://www.python.org/downloads/)
-1. Install [uv](https://docs.astral.sh/uv/) for package management
-1. Install [Git](https://git-scm.com/downloads)
-1. Have an [AI coding agent available](README.md#-supported-ai-agents)
+1. [Python 3.11+](https://www.python.org/downloads/)
+1. [uv](https://docs.astral.sh/uv/) для управления зависимостями
+1. [Git](https://git-scm.com/downloads)
+1. Доступ к [ИИ-агенту](README.md#-поддерживаемые-ии-агенты)
 
-## Submitting a pull request
+## Отправка pull request
 
 >[!NOTE]
->If your pull request introduces a large change that materially impacts the work of the CLI or the rest of the repository (e.g., you're introducing new templates, arguments, or otherwise major changes), make sure that it was **discussed and agreed upon** by the project maintainers. Pull requests with large changes that did not have a prior conversation and agreement will be closed.
+>Если PR вносит крупные изменения, затрагивающие CLI или значимые части репозитория (новые шаблоны, аргументы и т.д.), заранее обсудите их с мейнтейнерами. Крупные изменения без предварительного согласования будут отклонены.
 
-1. Fork and clone the repository
-1. Configure and install the dependencies: `uv sync`
-1. Make sure the CLI works on your machine: `uv run specify --help`
-1. Create a new branch: `git checkout -b my-branch-name`
-1. Make your change, add tests, and make sure everything still works
-1. Test the CLI functionality with a sample project if relevant
-1. Push to your fork and submit a pull request
-1. Wait for your pull request to be reviewed and merged.
+1. Сделайте fork и клонируйте репозиторий.
+1. Установите зависимости: `uv sync`.
+1. Убедитесь, что CLI работает: `uv run specify --help`.
+1. Создайте ветку: `git checkout -b my-branch-name`.
+1. Внесите изменения, добавьте тесты, убедитесь, что всё работает.
+1. При необходимости протестируйте CLI на примерном проекте.
+1. Запушьте ветку и откройте pull request.
+1. Дождитесь ревью и слияния.
 
-Here are a few things you can do that will increase the likelihood of your pull request being accepted:
+Чтобы повысить шанс принятия PR:
 
-- Follow the project's coding conventions.
-- Write tests for new functionality.
-- Update documentation (`README.md`, `spec-driven.md`) if your changes affect user-facing features.
-- Keep your change as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
-- Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
-- Test your changes with the Spec-Driven Development workflow to ensure compatibility.
+- следуйте принятому стилю кодовой базы;
+- пишите тесты для новой функциональности;
+- обновляйте документацию (`README.md`, `spec-driven.md`), если изменения влияют на пользователей;
+- держите PR максимально сфокусированным. Несвязанные изменения лучше разбивать на отдельные запросы;
+- пишите [хорошие сообщения коммитов](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html);
+- проверяйте работу в рамках процесса SDD — это гарантирует совместимость.
 
-## Development workflow
+## Рабочий процесс разработки
 
-When working on spec-kit:
+Работая над spec-kit:
 
-1. Test changes with the `specify` CLI commands (`/speckit.specify`, `/speckit.plan`, `/speckit.tasks`) in your coding agent of choice
-2. Verify templates are working correctly in `templates/` directory
-3. Test script functionality in the `scripts/` directory
-4. Ensure memory files (`memory/constitution.md`) are updated if major process changes are made
+1. Тестируйте изменения через команды `specify` (`/speckit.specify`, `/speckit.plan`, `/speckit.tasks`) в своём ИИ-агенте.
+2. Проверяйте, что шаблоны в `templates/` работают корректно.
+3. Тестируйте bash/PowerShell-скрипты в `scripts/`.
+4. Если меняется процесс, обновляйте файлы памяти (например, `memory/constitution.md`).
 
-## AI contributions in Spec Kit
+## Вклад с помощью ИИ
 
 > [!IMPORTANT]
->
-> If you are using **any kind of AI assistance** to contribute to Spec Kit,
-> it must be disclosed in the pull request or issue.
+> Если вы используете **любой ИИ** при работе над Spec Kit, обязательно укажите это в PR или issue.
 
-We welcome and encourage the use of AI tools to help improve Spec Kit! Many valuable contributions have been enhanced with AI assistance for code generation, issue detection, and feature definition.
+Мы приветствуем использование ИИ-инструментов: многие значимые изменения были упрощены благодаря AI (генерация кода, поиск проблем, формулировка требований). Однако прозрачность важна.
 
-That being said, if you are using any kind of AI assistance (e.g., agents, ChatGPT) while contributing to Spec Kit,
-**this must be disclosed in the pull request or issue**, along with the extent to which AI assistance was used (e.g., documentation comments vs. code generation).
+- Если вы использовали ИИ (агенты, ChatGPT и т.д.), **прямо напишите об этом** в PR/issue, укажите степень участия (например, только подсказки или полноценный код).
+- Если ответы или комментарии в PR написаны ИИ, также обозначьте это.
+- Исключение — тривиальные правки (опечатки, пробелы) в небольших участках кода или коротких фразах.
 
-If your PR responses or comments are being generated by an AI, disclose that as well.
+Примеры раскрытия:
 
-As an exception, trivial spacing or typo fixes don't need to be disclosed, so long as the changes are limited to small parts of the code or short phrases.
+> Этот PR в основном написан с помощью GitHub Copilot.
 
-An example disclosure:
+или
 
-> This PR was written primarily by GitHub Copilot.
+> Я использовал ChatGPT для понимания кодовой базы, но окончательное решение написал сам.
 
-Or a more detailed disclosure:
+Отсутствие раскрытия во-первых невежливо по отношению к мейнтейнерам, а во-вторых мешает оценить, сколько внимания требует ваш вклад. К сожалению, сейчас ИИ без участия человека часто генерирует код, который сложно поддерживать.
 
-> I consulted ChatGPT to understand the codebase but the solution
-> was fully authored manually by myself.
+### Что мы ожидаем
 
-Failure to disclose this is first and foremost rude to the human operators on the other end of the pull request, but it also makes it difficult to
-determine how much scrutiny to apply to the contribution.
+В ИИ-помогающих вкладках важно:
 
-In a perfect world, AI assistance would produce equal or higher quality work than any human. That isn't the world we live in today, and in most cases
-where human supervision or expertise is not in the loop, it's generating code that cannot be reasonably maintained or evolved.
+- **Прозрачность** — честно указать степень участия ИИ.
+- **Понимание и тестирование** — вы сами протестировали изменения и понимаете их.
+- **Обоснование** — можете объяснить, зачем изменение и как оно соответствует целям Spec Kit.
+- **Доказательства** — приложите тесты, сценарии, примеры, демонстрирующие улучшения.
+- **Анализ** — поделитесь мыслями о developer experience end-to-end.
 
-### What we're looking for
+### Что мы будем закрывать
 
-When submitting AI-assisted contributions, please ensure they include:
+Мы оставляем за собой право закрывать вклад:
 
-- **Clear disclosure of AI use** - You are transparent about AI use and degree to which you're using it for the contribution
-- **Human understanding and testing** - You've personally tested the changes and understand what they do
-- **Clear rationale** - You can explain why the change is needed and how it fits within Spec Kit's goals  
-- **Concrete evidence** - Include test cases, scenarios, or examples that demonstrate the improvement
-- **Your own analysis** - Share your thoughts on the end-to-end developer experience
+- если нет подтверждения, что изменения протестированы;
+- если предложение слишком общее и не решает конкретную задачу Spec Kit;
+- если это массовые правки без признаков человеческого контроля.
 
-### What we'll close
+### Советы по успеху
 
-We reserve the right to close contributions that appear to be:
+Главное — показать, что вы понимаете и проверили изменения. Если легко заметить, что вклад целиком создан ИИ без участия человека, скорее всего его нужно доработать. Систематическая отправка низкокачественных AI-PR может привести к ограничению участия.
 
-- Untested changes submitted without verification
-- Generic suggestions that don't address specific Spec Kit needs
-- Bulk submissions that show no human review or understanding
+Пожалуйста, уважайте мейнтейнеров и раскрывайте использование ИИ.
 
-### Guidelines for success
+## Полезные материалы
 
-The key is demonstrating that you understand and have validated your proposed changes. If a maintainer can easily tell that a contribution was generated entirely by AI without human input or testing, it likely needs more work before submission.
-
-Contributors who consistently submit low-effort AI-generated changes may be restricted from further contributions at the maintainers' discretion.
-
-Please be respectful to maintainers and disclose AI assistance.
-
-## Resources
-
-- [Spec-Driven Development Methodology](./spec-driven.md)
-- [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
-- [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
-- [GitHub Help](https://help.github.com)
+- [Методология Spec-Driven Development](./spec-driven.md)
+- [Как вносить вклад в open source](https://opensource.guide/how-to-contribute/)
+- [Pull Request на GitHub](https://help.github.com/articles/about-pull-requests/)
+- [Справка GitHub](https://help.github.com)

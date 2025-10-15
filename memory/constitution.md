@@ -1,50 +1,50 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Конституция [PROJECT_NAME]
+<!-- Пример: Spec Constitution, TaskFlow Constitution и т.д. -->
 
-## Core Principles
+## Базовые принципы
 
 ### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
+<!-- Пример: I. Library-First -->
 [PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+<!-- Пример: Каждая функция начинается как автономная библиотека; библиотеки должны быть самодостаточными, тестируемыми независимо, документированными; требуется чёткая цель — никаких библиотек только ради организации -->
 
 ### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
+<!-- Пример: II. CLI-интерфейс -->
 [PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+<!-- Пример: Каждая библиотека предоставляет функциональность через CLI; текстовый протокол: stdin/аргументы → stdout, ошибки → stderr; поддержка JSON и человекочитаемых форматов -->
 
 ### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+<!-- Пример: III. Test-First (БЕЗ КОМПРОМИССОВ) -->
 [PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+<!-- Пример: TDD обязательно: тесты пишутся → одобряются пользователем → тесты падают → затем реализация; цикл Red-Green-Refactor строго соблюдается -->
 
 ### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
+<!-- Пример: IV. Интеграционное тестирование -->
 [PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+<!-- Пример: Зоны, требующие интеграционных тестов: новые контрактные тесты библиотеки, изменение контрактов, взаимодействие сервисов, общие схемы -->
 
 ### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
+<!-- Пример: V. Наблюдаемость, VI. Версионирование и несовместимые изменения, VII. Простота -->
 [PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+<!-- Пример: Текстовый ввод/вывод обеспечивает удобную отладку; обязателен структурированный логинг; или: формат MAJOR.MINOR.BUILD; или: начинайте с простого, принцип YAGNI -->
 
 ## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+<!-- Пример: Дополнительные ограничения, требования безопасности, стандарты производительности и т.д. -->
 
 [SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+<!-- Пример: Требования к стеку технологий, стандарты соответствия, политики деплоя и т.д. -->
 
 ## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+<!-- Пример: Рабочий процесс разработки, процесс ревью, критерии качества и т.д. -->
 
 [SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+<!-- Пример: Требования к code review, тестовые ворота, процесс утверждения деплоя и т.д. -->
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+## Управление
+<!-- Пример: Конституция превосходит все остальные практики; изменения требуют документации, утверждения, плана миграции -->
 
 [GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+<!-- Пример: Все PR/ревью должны проверять соответствие; сложность нужно обосновывать; используйте [GUIDANCE_FILE] как руководство по runtime-разработке -->
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Версия**: [CONSTITUTION_VERSION] | **Ратифицирована**: [RATIFICATION_DATE] | **Последняя правка**: [LAST_AMENDED_DATE]
+<!-- Пример: Версия: 2.1.1 | Ратифицирована: 2025-06-13 | Последняя правка: 2025-07-16 -->

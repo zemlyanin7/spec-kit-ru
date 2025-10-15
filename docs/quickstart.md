@@ -1,122 +1,114 @@
-# Quick Start Guide
+# Краткое руководство
 
-This guide will help you get started with Spec-Driven Development using Spec Kit.
+Это руководство поможет быстро начать работать с разработкой, управляемой спецификациями, используя Spec Kit.
 
-> NEW: All automation scripts now provide both Bash (`.sh`) and PowerShell (`.ps1`) variants. The `specify` CLI auto-selects based on OS unless you pass `--script sh|ps`.
+> НОВОЕ: Все автоматизированные скрипты теперь доступны и в Bash (`.sh`), и в PowerShell (`.ps1`) вариантах. CLI `specify` автоматически выбирает подходящий вариант в зависимости от ОС, если явно не указать `--script sh|ps`.
 
-## The 4-Step Process
+## Процесс из четырёх шагов
 
-### 1. Install Specify
+### 1. Установите Specify
 
-Initialize your project depending on the coding agent you're using:
-
-```bash
-uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>
-```
-
-Pick script type explicitly (optional):
-```bash
-uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME> --script ps  # Force PowerShell
-uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME> --script sh  # Force POSIX shell
-```
-
-### 2. Create the Spec
-
-Use the `/speckit.specify` command to describe what you want to build. Focus on the **what** and **why**, not the tech stack.
+Инициализируйте проект в зависимости от используемого агента:
 
 ```bash
-/speckit.specify Build an application that can help me organize my photos in separate photo albums. Albums are grouped by date and can be re-organized by dragging and dropping on the main page. Albums are never in other nested albums. Within each album, photos are previewed in a tile-like interface.
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <PROJECT_NAME>
 ```
 
-### 3. Create a Technical Implementation Plan
+При необходимости явно выберите тип скриптов:
+```bash
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <PROJECT_NAME> --script ps  # принудительно PowerShell
+uvx --from git+https://github.com/zemlyanin7/spec-kit-ru.git specify init <PROJECT_NAME> --script sh  # принудительно POSIX-оболочка
+```
 
-Use the `/speckit.plan` command to provide your tech stack and architecture choices.
+### 2. Создайте спецификацию
+
+Используйте команду `/speckit.specify`, чтобы описать, что вы хотите построить. Сфокусируйтесь на **что** и **почему**, а не на технологическом стеке.
 
 ```bash
-/speckit.plan The application uses Vite with minimal number of libraries. Use vanilla HTML, CSS, and JavaScript as much as possible. Images are not uploaded anywhere and metadata is stored in a local SQLite database.
+/speckit.specify Создай приложение, которое поможет мне организовывать фотографии по отдельным фотоальбомам. Альбомы группируются по дате и могут переупорядочиваться перетаскиванием на главной странице. Альбомы не могут содержать другие вложенные альбомы. Внутри каждого альбома фотографии показываются в плиточном интерфейсе.
 ```
 
-### 4. Break Down and Implement
+### 3. Подготовьте технический план реализации
 
-Use `/speckit.tasks` to create an actionable task list, then ask your agent to implement the feature.
+Команда `/speckit.plan` помогает зафиксировать выбранный стек и архитектуру.
 
-## Detailed Example: Building Taskify
+```bash
+/speckit.plan Приложение использует Vite с минимальным количеством библиотек. По возможности применяй чистые HTML, CSS и JavaScript. Изображения никуда не загружаются, а метаданные хранятся в локальной базе SQLite.
+```
 
-Here's a complete example of building a team productivity platform:
+### 4. Разбейте задачу и реализуйте
 
-### Step 1: Define Requirements with `/speckit.specify`
+Вызов `/speckit.tasks` сформирует список конкретных задач, после чего попросите агента реализовать функциональность.
+
+## Подробный пример: создание Taskify
+
+Полноценный пример разработки платформы для продуктивности команды.
+
+### Шаг 1. Определите требования через `/speckit.specify`
 
 ```text
-Develop Taskify, a team productivity platform. It should allow users to create projects, add team members,
-assign tasks, comment and move tasks between boards in Kanban style. In this initial phase for this feature,
-let's call it "Create Taskify," let's have multiple users but the users will be declared ahead of time, predefined.
-I want five users in two different categories, one product manager and four engineers. Let's create three
-different sample projects. Let's have the standard Kanban columns for the status of each task, such as "To Do,"
-"In Progress," "In Review," and "Done." There will be no login for this application as this is just the very
-first testing thing to ensure that our basic features are set up. For each task in the UI for a task card,
-you should be able to change the current status of the task between the different columns in the Kanban work board.
-You should be able to leave an unlimited number of comments for a particular card. You should be able to, from that task
-card, assign one of the valid users. When you first launch Taskify, it's going to give you a list of the five users to pick
-from. There will be no password required. When you click on a user, you go into the main view, which displays the list of
-projects. When you click on a project, you open the Kanban board for that project. You're going to see the columns.
-You'll be able to drag and drop cards back and forth between different columns. You will see any cards that are
-assigned to you, the currently logged in user, in a different color from all the other ones, so you can quickly
-see yours. You can edit any comments that you make, but you can't edit comments that other people made. You can
-delete any comments that you made, but you can't delete comments anybody else made.
+Разработай Taskify — платформу для продуктивности команды. Она должна позволять создавать проекты, добавлять участников,
+назначать задачи, оставлять комментарии и перемещать задачи между досками в стиле Kanban. В первом шаге этой функции,
+назовём его «Создать Taskify», пусть будет несколько пользователей, заданных заранее. Нужны пять пользователей в
+двух ролях: один продуктовый менеджер и четыре инженера. Создай три примерных проекта. Используй стандартные Kanban-колонки
+для статуса каждой задачи: «To Do», «In Progress», «In Review» и «Done». В этом приложении не будет входа в систему — это
+первый тест, чтобы убедиться, что базовые возможности работают. Для каждой задачи в UI карточки задачи должна быть возможность
+переключать текущий статус между колонками на доске. Можно оставлять неограниченное число комментариев к карточке. С карточки задачи
+можно назначать одного из допустимых пользователей. При первом запуске Taskify отображается список пяти пользователей на выбор.
+Пароль не требуется. После выбора пользователя открывается основной экран со списком проектов. При клике на проект открывается
+Kanban-доска. Видны все колонки, и можно перетаскивать карточки между ними. Карточки, назначенные текущему пользователю,
+подсвечиваются другим цветом, чтобы их было легко заметить. Пользователь может редактировать и удалять только собственные комментарии.
 ```
 
-### Step 2: Refine the Specification
+### Шаг 2. Уточните спецификацию
 
-After the initial specification is created, clarify any missing requirements:
+После первичной спецификации уточните недостающие требования:
 
 ```text
-For each sample project or project that you create there should be a variable number of tasks between 5 and 15
-tasks for each one randomly distributed into different states of completion. Make sure that there's at least
-one task in each stage of completion.
+Для каждого примерного или созданного проекта должно быть случайное количество задач от 5 до 15,
+распределённых по разным стадиям выполнения. Убедись, что в каждой стадии есть хотя бы одна задача.
 ```
 
-Also validate the specification checklist:
+Также проверьте чек-лист спецификации:
 
 ```text
-Read the review and acceptance checklist, and check off each item in the checklist if the feature spec meets the criteria. Leave it empty if it does not.
+Прочитай чек-лист обзора и приёмки и отметь каждый пункт, если спецификация его выполняет. Если нет — оставь пустым.
 ```
 
-### Step 3: Generate Technical Plan with `/speckit.plan`
+### Шаг 3. Сформируйте технический план через `/speckit.plan`
 
-Be specific about your tech stack and technical requirements:
+Будьте конкретны в выборе технологий и технических требований:
 
 ```text
-We are going to generate this using .NET Aspire, using Postgres as the database. The frontend should use
-Blazor server with drag-and-drop task boards, real-time updates. There should be a REST API created with a projects API,
-tasks API, and a notifications API.
+Реализуем решение на .NET Aspire, база данных — Postgres. Фронтенд использует Blazor Server с kanban-досками и обновлением
+в реальном времени. Нужен REST API: проекты, задачи и уведомления.
 ```
 
-### Step 4: Validate and Implement
+### Шаг 4. Проверьте и реализуйте
 
-Have your AI agent audit the implementation plan:
+Попросите агента оценить план реализации:
 
 ```text
-Now I want you to go and audit the implementation plan and the implementation detail files.
-Read through it with an eye on determining whether or not there is a sequence of tasks that you need
-to be doing that are obvious from reading this. Because I don't know if there's enough here.
+Проанализируй план реализации и файлы с деталями. Выясни, есть ли очевидная последовательность задач, которую нужно выполнить.
+Хочу убедиться, что информации достаточно.
 ```
 
-Finally, implement the solution:
+Затем реализуйте решение:
 
 ```text
 implement specs/002-create-taskify/plan.md
 ```
 
-## Key Principles
+## Ключевые принципы
 
-- **Be explicit** about what you're building and why
-- **Don't focus on tech stack** during specification phase
-- **Iterate and refine** your specifications before implementation
-- **Validate** the plan before coding begins
-- **Let the AI agent handle** the implementation details
+- **Говорите напрямую**, что и зачем строится
+- **Не сосредотачивайтесь на стеке** на этапе спецификации
+- **Итерируйте и уточняйте** спецификацию до начала реализации
+- **Проверяйте** план перед началом разработки
+- **Доверьте агенту** детали реализации
 
-## Next Steps
+## Следующие шаги
 
-- Read the complete methodology for in-depth guidance
-- Check out more examples in the repository
-- Explore the source code on GitHub
+- Изучите полную методологию для более глубокого понимания
+- Посмотрите другие примеры в репозитории
+- Ознакомьтесь с исходным кодом на [GitHub](https://github.com/zemlyanin7/spec-kit-ru)

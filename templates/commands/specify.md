@@ -1,60 +1,57 @@
 ---
-description: Create or update the feature specification from a natural language feature description.
+description: Создать или обновить спецификацию фичи на основе текстового описания.
 scripts:
   sh: scripts/bash/create-new-feature.sh --json "{ARGS}"
   ps: scripts/powershell/create-new-feature.ps1 -Json "{ARGS}"
 ---
 
-## User Input
+## Ввод пользователя
 
 ```text
 $ARGUMENTS
 ```
 
-You **MUST** consider the user input before proceeding (if not empty).
+Вы **ОБЯЗАНЫ** учитывать ввод пользователя перед выполнением дальнейших действий (если он не пустой).
 
-## Outline
+## Общий план
 
-The text the user typed after `/speckit.specify` in the triggering message **is** the feature description. Assume you always have it available in this conversation even if `{ARGS}` appears literally below. Do not ask the user to repeat it unless they provided an empty command.
+Текст, который пользователь ввёл после `/speckit.specify`, **и есть** описание фичи. Считайте, что оно всегда доступно в текущем диалоге, даже если `{ARGS}` ниже показан буквально. Не просите пользователя повторять описание, если команда не была пустой.
 
-Given that feature description, do this:
+Выполните следующее:
 
-1. Run the script `{SCRIPT}` from repo root and parse its JSON output for BRANCH_NAME and SPEC_FILE. All file paths must be absolute.
-  **IMPORTANT** You must only ever run this script once. The JSON is provided in the terminal as output - always refer to it to get the actual content you're looking for. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
-2. Load `templates/spec-template.md` to understand required sections.
+1. Запустите скрипт `{SCRIPT}` из корня репозитория и распарсите его JSON-вывод, чтобы получить BRANCH_NAME и SPEC_FILE. Все пути к файлам должны быть абсолютными.  
+   **ВАЖНО**: скрипт нужно запускать строго один раз. JSON уже выводится в терминал — используйте его, чтобы получить нужные значения. Если в аргументах есть апостроф (например, "I'm Groot"), экранируйте: `'I'\''m Groot'` или используйте двойные кавычки `"I'm Groot"`.
+2. Прочитайте `templates/spec-template.md`, чтобы понять структуру документа.
 
-3. Follow this execution flow:
+3. Следуйте этому алгоритму:
 
-    1. Parse user description from Input
-       If empty: ERROR "No feature description provided"
-    2. Extract key concepts from description
-       Identify: actors, actions, data, constraints
-    3. For unclear aspects:
-       - Make informed guesses based on context and industry standards
-       - Only mark with [NEEDS CLARIFICATION: specific question] if:
-         - The choice significantly impacts feature scope or user experience
-         - Multiple reasonable interpretations exist with different implications
-         - No reasonable default exists
-       - **LIMIT: Maximum 3 [NEEDS CLARIFICATION] markers total**
-       - Prioritize clarifications by impact: scope > security/privacy > user experience > technical details
-    4. Fill User Scenarios & Testing section
-       If no clear user flow: ERROR "Cannot determine user scenarios"
-    5. Generate Functional Requirements
-       Each requirement must be testable
-       Use reasonable defaults for unspecified details (document assumptions in Assumptions section)
-    6. Define Success Criteria
-       Create measurable, technology-agnostic outcomes
-       Include both quantitative metrics (time, performance, volume) and qualitative measures (user satisfaction, task completion)
-       Each criterion must be verifiable without implementation details
-    7. Identify Key Entities (if data involved)
-    8. Return: SUCCESS (spec ready for planning)
+    1. Спарсить описание пользователя.  
+       Если оно пустое: завершить с ошибкой `ERROR "No feature description provided"`.
+    2. Выделить ключевые понятия из описания.  
+       Определить: пользователей/актеров, действия, данные, ограничения.
+    3. Для неясных моментов:
+       - Делайте обоснованные допущения, опираясь на контекст и отраслевые стандарты.
+       - Используйте пометки `[NEEDS CLARIFICATION: вопрос]` только если:
+         - Выбор существенно влияет на объём фичи или пользовательский опыт;
+         - Есть несколько равноправных трактовок с разными последствиями;
+         - Не существует разумного значения по умолчанию.
+       - **ОГРАНИЧЕНИЕ**: не более трёх пометок `[NEEDS CLARIFICATION]` суммарно.
+       - Приоритизируйте вопросы так: область фичи > безопасность/комплаенс > пользовательский опыт > технические детали.
+    4. Заполните раздел «Пользовательские сценарии и тестирование».  
+       Если нельзя определить сценарии: `ERROR "Cannot determine user scenarios"`.
+    5. Сформируйте функциональные требования.  
+       Каждое требование должно быть проверяемым. Используйте разумные значения по умолчанию и фиксируйте допущения в разделе Assumptions.
+    6. Определите критерии успеха.  
+       Они должны быть измеримыми и технологически нейтральными. Включайте количественные метрики (время, производительность, объём) и качественные показатели (успешность выполнения задачи). Каждый критерий должен быть верифицируем без знания реализации.
+    7. Определите ключевые сущности (если фича связана с данными).
+    8. Завершите: SUCCESS (спецификация готова для планирования).
 
-4. Write the specification to SPEC_FILE using the template structure, replacing placeholders with concrete details derived from the feature description (arguments) while preserving section order and headings.
+4. Запишите спецификацию в SPEC_FILE, следуя структуре шаблона и заменяя плейсхолдеры фактической информацией из описания, сохраняя порядок разделов и заголовков.
 
-5. **Specification Quality Validation**: After writing the initial spec, validate it against quality criteria:
+5. **Проверка качества спецификации**: после первичного заполнения проверьте документ по чек-листу.
 
-   a. **Create Spec Quality Checklist**: Generate a checklist file at `FEATURE_DIR/checklists/requirements.md` using the checklist template structure with these validation items:
-   
+   a. **Создайте чек-лист качества**: сгенерируйте файл `FEATURE_DIR/checklists/requirements.md`, используя структуру шаблона, со следующими пунктами:
+
       ```markdown
       # Specification Quality Checklist: [FEATURE NAME]
       
@@ -91,121 +88,81 @@ Given that feature description, do this:
       
       - Items marked incomplete require spec updates before `/speckit.clarify` or `/speckit.plan`
       ```
-   
-   b. **Run Validation Check**: Review the spec against each checklist item:
-      - For each item, determine if it passes or fails
-      - Document specific issues found (quote relevant spec sections)
-   
-   c. **Handle Validation Results**:
-      
-      - **If all items pass**: Mark checklist complete and proceed to step 6
-      
-      - **If items fail (excluding [NEEDS CLARIFICATION])**:
-        1. List the failing items and specific issues
-        2. Update the spec to address each issue
-        3. Re-run validation until all items pass (max 3 iterations)
-        4. If still failing after 3 iterations, document remaining issues in checklist notes and warn user
-      
-      - **If [NEEDS CLARIFICATION] markers remain**:
-        1. Extract all [NEEDS CLARIFICATION: ...] markers from the spec
-        2. **LIMIT CHECK**: If more than 3 markers exist, keep only the 3 most critical (by scope/security/UX impact) and make informed guesses for the rest
-        3. For each clarification needed (max 3), present options to user in this format:
-        
-           ```markdown
-           ## Question [N]: [Topic]
-           
-           **Context**: [Quote relevant spec section]
-           
-           **What we need to know**: [Specific question from NEEDS CLARIFICATION marker]
-           
-           **Suggested Answers**:
-           
-           | Option | Answer | Implications |
-           |--------|--------|--------------|
-           | A      | [First suggested answer] | [What this means for the feature] |
-           | B      | [Second suggested answer] | [What this means for the feature] |
-           | C      | [Third suggested answer] | [What this means for the feature] |
-           | Custom | Provide your own answer | [Explain how to provide custom input] |
-           
-           **Your choice**: _[Wait for user response]_
-           ```
-        
-        4. **CRITICAL - Table Formatting**: Ensure markdown tables are properly formatted:
-           - Use consistent spacing with pipes aligned
-           - Each cell should have spaces around content: `| Content |` not `|Content|`
-           - Header separator must have at least 3 dashes: `|--------|`
-           - Test that the table renders correctly in markdown preview
-        5. Number questions sequentially (Q1, Q2, Q3 - max 3 total)
-        6. Present all questions together before waiting for responses
-        7. Wait for user to respond with their choices for all questions (e.g., "Q1: A, Q2: Custom - [details], Q3: B")
-        8. Update the spec by replacing each [NEEDS CLARIFICATION] marker with the user's selected or provided answer
-        9. Re-run validation after all clarifications are resolved
-   
-   d. **Update Checklist**: After each validation iteration, update the checklist file with current pass/fail status
 
-6. Report completion with branch name, spec file path, checklist results, and readiness for the next phase (`/speckit.clarify` or `/speckit.plan`).
+   b. **Проведите проверку**: пройдитесь по каждому пункту чек-листа, определите, выполнен он или нет, зафиксируйте найденные проблемы (цитируя соответствующие части спецификации).
 
-**NOTE:** The script creates and checks out the new branch and initializes the spec file before writing.
+   c. **Обработка результатов**:
+      - **Если все пункты выполнены**: отметьте чек-лист как выполненный и переходите к шагу 6.
+      - **Если есть невыполненные пункты (кроме `[NEEDS CLARIFICATION]`)**:
+        1. Перечислите, какие пункты провалены, и опишите проблему.
+        2. Обновите спецификацию, чтобы исправить замечания.
+        3. Повторно запустите проверку (максимум 3 итерации).
+        4. Если после трёх итераций остаются проваленные пункты — завершите с ошибкой и укажите причины.
+      - **Если есть `[NEEDS CLARIFICATION]`**:
+        1. Сформируйте таблицу с вопросами (максимум 3 строки) и предложите варианты ответов (см. оригинальные инструкции).
+        2. Дождитесь ответа пользователя и обновите спецификацию.
+        3. Повторите проверку.
 
-## General Guidelines
+   d. **Обновляйте чек-лист** после каждой итерации, фиксируя текущий статус.
 
-## Quick Guidelines
+6. Сообщите о завершении: выведите ветку, путь к файлу спецификации, итог проверки чек-листа и готовность к следующему шагу (`/speckit.clarify` или `/speckit.plan`).
 
-- Focus on **WHAT** users need and **WHY**.
-- Avoid HOW to implement (no tech stack, APIs, code structure).
-- Written for business stakeholders, not developers.
-- DO NOT create any checklists that are embedded in the spec. That will be a separate command.
+**ПРИМЕЧАНИЕ**: Скрипт создаёт и переключается на новую ветку, а также инициализирует файл спецификации до записи содержимого.
 
-### Section Requirements
+## Общие рекомендации
 
-- **Mandatory sections**: Must be completed for every feature
-- **Optional sections**: Include only when relevant to the feature
-- When a section doesn't apply, remove it entirely (don't leave as "N/A")
+### Кратко
 
-### For AI Generation
+- Фокус на **ЧТО** нужно пользователю и **ПОЧЕМУ**.
+- Не описывайте **КАК** реализовать (без техстека, API, архитектуры).
+- Пишите так, чтобы документ был понятен бизнес-стейкхолдерам.
+- Не добавляйте чек-листы внутрь спецификации — для них есть отдельная команда.
 
-When creating this spec from a user prompt:
+### Обязательные и опциональные разделы
 
-1. **Make informed guesses**: Use context, industry standards, and common patterns to fill gaps
-2. **Document assumptions**: Record reasonable defaults in the Assumptions section
-3. **Limit clarifications**: Maximum 3 [NEEDS CLARIFICATION] markers - use only for critical decisions that:
-   - Significantly impact feature scope or user experience
-   - Have multiple reasonable interpretations with different implications
-   - Lack any reasonable default
-4. **Prioritize clarifications**: scope > security/privacy > user experience > technical details
-5. **Think like a tester**: Every vague requirement should fail the "testable and unambiguous" checklist item
-6. **Common areas needing clarification** (only if no reasonable default exists):
-   - Feature scope and boundaries (include/exclude specific use cases)
-   - User types and permissions (if multiple conflicting interpretations possible)
-   - Security/compliance requirements (when legally/financially significant)
-   
-**Examples of reasonable defaults** (don't ask about these):
+- **Обязательные** разделы заполняются для каждой фичи.
+- **Опциональные** включаются только если релевантны.
+- Если раздел не нужен — удалите его, не оставляйте «N/A».
 
-- Data retention: Industry-standard practices for the domain
-- Performance targets: Standard web/mobile app expectations unless specified
-- Error handling: User-friendly messages with appropriate fallbacks
-- Authentication method: Standard session-based or OAuth2 for web apps
-- Integration patterns: RESTful APIs unless specified otherwise
+### Для генерации ИИ
 
-### Success Criteria Guidelines
+1. **Делайте разумные предположения** на основе контекста и типовых практик.
+2. **Фиксируйте допущения** в соответствующем разделе.
+3. **Ограничивайте относительные вопросы** — максимум 3 пометки `[NEEDS CLARIFICATION]`.
+4. **Приоритет вопросов**: объём фичи > безопасность/конфиденциальность > пользовательский опыт > техдетали.
+5. **Мысленно тестируйте документ** — размытые требования должны приводить к провалу пунктов чек-листа.
+6. **Типичные области для уточнений** (только если нет разумного дефолта):
+   - Границы фичи (что входит/не входит)
+   - Типы пользователей и права доступа
+   - Требования безопасности/комплаенса
 
-Success criteria must be:
+**Примеры допустимых допущений** (не спрашивайте пользователя):
 
-1. **Measurable**: Include specific metrics (time, percentage, count, rate)
-2. **Technology-agnostic**: No mention of frameworks, languages, databases, or tools
-3. **User-focused**: Describe outcomes from user/business perspective, not system internals
-4. **Verifiable**: Can be tested/validated without knowing implementation details
+- Срок хранения данных: стандартный для домена.
+- Цели по производительности: типичные для веб/мобильных приложений.
+- Обработка ошибок: дружелюбные сообщения + корректные фолбэки.
+- Метод аутентификации: стандартный (сессии или OAuth2) для веб-приложений.
+- Паттерны интеграции: RESTful, если не указано иное.
 
-**Good examples**:
+### Критерии успеха — рекомендации
 
-- "Users can complete checkout in under 3 minutes"
-- "System supports 10,000 concurrent users"
-- "95% of searches return results in under 1 second"
-- "Task completion rate improves by 40%"
+Критерии должны быть:
 
-**Bad examples** (implementation-focused):
+1. **Измеримыми** — конкретные метрики (время, %, количество, частота).
+2. **Технологически нейтральными** — без упоминаний фреймворков, БД, инструментов.
+3. **Ориентированными на пользователя/бизнес** — описывают результат, а не реализацию.
+4. **Проверяемыми** — можно протестировать без знания реализации.
 
-- "API response time is under 200ms" (too technical, use "Users see results instantly")
-- "Database can handle 1000 TPS" (implementation detail, use user-facing metric)
-- "React components render efficiently" (framework-specific)
-- "Redis cache hit rate above 80%" (technology-specific)
+**Хорошие примеры**:
+
+- «Пользователь завершает оформление заказа менее чем за 3 минуты».
+- «Система поддерживает 10 000 одновременных пользователей».
+- «95% поисков завершается менее чем за 1 секунду».
+- «Количество обращений в поддержку по теме [X] снижается на 40%».
+
+**Плохие примеры** (слишком технические):
+
+- «Время ответа API <200 мс» — лучше переформулировать в пользовательском контексте.
+- «База данных выдерживает 1000 TPS» — ориентируйтесь на пользовательский эффект.
+- «Компоненты React рендерятся эффективно» — упоминание конкретного фреймворка.
+- «Hit rate Redis выше 80%» — зависит от конкретного инструмента.

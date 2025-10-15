@@ -2,7 +2,7 @@
 
 set -e
 
-# Parse command line arguments
+# Разбор аргументов командной строки
 JSON_MODE=false
 ARGS=()
 
@@ -12,9 +12,9 @@ for arg in "$@"; do
             JSON_MODE=true 
             ;;
         --help|-h) 
-            echo "Usage: $0 [--json]"
-            echo "  --json    Output results in JSON format"
-            echo "  --help    Show this help message"
+            echo "Использование: $0 [--json]"
+            echo "  --json    вывод в формате JSON"
+            echo "  --help    показать эту справку"
             exit 0 
             ;;
         *) 
@@ -23,31 +23,31 @@ for arg in "$@"; do
     esac
 done
 
-# Get script directory and load common functions
+# Определяем каталог скрипта и подключаем общие функции
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/common.sh"
 
-# Get all paths and variables from common functions
+# Получаем пути и переменные из общего модуля
 eval $(get_feature_paths)
 
-# Check if we're on a proper feature branch (only for git repos)
+# Проверяем, находимся ли на корректной фиче-ветке (только для git-репозиториев)
 check_feature_branch "$CURRENT_BRANCH" "$HAS_GIT" || exit 1
 
-# Ensure the feature directory exists
+# Гарантируем наличие каталога фичи
 mkdir -p "$FEATURE_DIR"
 
-# Copy plan template if it exists
+# Копируем шаблон плана, если он доступен
 TEMPLATE="$REPO_ROOT/.specify/templates/plan-template.md"
 if [[ -f "$TEMPLATE" ]]; then
     cp "$TEMPLATE" "$IMPL_PLAN"
-    echo "Copied plan template to $IMPL_PLAN"
+    echo "Скопирован шаблон плана в $IMPL_PLAN"
 else
-    echo "Warning: Plan template not found at $TEMPLATE"
-    # Create a basic plan file if template doesn't exist
+    echo "WARNING: Шаблон плана не найден по пути $TEMPLATE"
+    # Создаём базовый файл плана, если шаблон отсутствует
     touch "$IMPL_PLAN"
 fi
 
-# Output results
+# Формируем вывод
 if $JSON_MODE; then
     printf '{"FEATURE_SPEC":"%s","IMPL_PLAN":"%s","SPECS_DIR":"%s","BRANCH":"%s","HAS_GIT":"%s"}\n' \
         "$FEATURE_SPEC" "$IMPL_PLAN" "$FEATURE_DIR" "$CURRENT_BRANCH" "$HAS_GIT"

@@ -7,18 +7,18 @@ ARGS=()
 for arg in "$@"; do
     case "$arg" in
         --json) JSON_MODE=true ;;
-        --help|-h) echo "Usage: $0 [--json] <feature_description>"; exit 0 ;;
+        --help|-h) echo "Использование: $0 [--json] <описание_фичи>"; exit 0 ;;
         *) ARGS+=("$arg") ;;
     esac
 done
 
 FEATURE_DESCRIPTION="${ARGS[*]}"
 if [ -z "$FEATURE_DESCRIPTION" ]; then
-    echo "Usage: $0 [--json] <feature_description>" >&2
+    echo "Использование: $0 [--json] <описание_фичи>" >&2
     exit 1
 fi
 
-# Function to find the repository root by searching for existing project markers
+# Функция поиска корня репозитория по маркерам проекта
 find_repo_root() {
     local dir="$1"
     while [ "$dir" != "/" ]; do
@@ -31,9 +31,8 @@ find_repo_root() {
     return 1
 }
 
-# Resolve repository root. Prefer git information when available, but fall back
-# to searching for repository markers so the workflow still functions in repositories that
-# were initialised with --no-git.
+# Определяем корень репозитория. Предпочитаем данные git, но при их отсутствии
+# ищем маркеры репозитория, чтобы workflow работал даже после инициализации с --no-git.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if git rev-parse --show-toplevel >/dev/null 2>&1; then
@@ -42,7 +41,7 @@ if git rev-parse --show-toplevel >/dev/null 2>&1; then
 else
     REPO_ROOT="$(find_repo_root "$SCRIPT_DIR")"
     if [ -z "$REPO_ROOT" ]; then
-        echo "Error: Could not determine repository root. Please run this script from within the repository." >&2
+        echo "ERROR: Не удалось определить корень репозитория. Запустите скрипт из каталога проекта." >&2
         exit 1
     fi
     HAS_GIT=false
@@ -74,7 +73,7 @@ BRANCH_NAME="${FEATURE_NUM}-${WORDS}"
 if [ "$HAS_GIT" = true ]; then
     git checkout -b "$BRANCH_NAME"
 else
-    >&2 echo "[specify] Warning: Git repository not detected; skipped branch creation for $BRANCH_NAME"
+    >&2 echo "[specify] Предупреждение: git-репозиторий не обнаружен; создание ветки $BRANCH_NAME пропущено"
 fi
 
 FEATURE_DIR="$SPECS_DIR/$BRANCH_NAME"
@@ -84,7 +83,7 @@ TEMPLATE="$REPO_ROOT/.specify/templates/spec-template.md"
 SPEC_FILE="$FEATURE_DIR/spec.md"
 if [ -f "$TEMPLATE" ]; then cp "$TEMPLATE" "$SPEC_FILE"; else touch "$SPEC_FILE"; fi
 
-# Set the SPECIFY_FEATURE environment variable for the current session
+# Устанавливаем переменную окружения SPECIFY_FEATURE для текущей сессии
 export SPECIFY_FEATURE="$BRANCH_NAME"
 
 if $JSON_MODE; then
@@ -93,5 +92,5 @@ else
     echo "BRANCH_NAME: $BRANCH_NAME"
     echo "SPEC_FILE: $SPEC_FILE"
     echo "FEATURE_NUM: $FEATURE_NUM"
-    echo "SPECIFY_FEATURE environment variable set to: $BRANCH_NAME"
+    echo "Переменная окружения SPECIFY_FEATURE установлена в: $BRANCH_NAME"
 fi

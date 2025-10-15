@@ -1,62 +1,60 @@
-# Implementation Plan: [FEATURE]
+# План реализации: [FEATURE]
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Ветка**: `[###-feature-name]` | **Дата**: [DATE] | **Спецификация**: [link]  
+**Входные данные**: Спецификация фичи из `/specs/[###-feature-name]/spec.md`
 
-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
+**Примечание**: Этот шаблон заполняется командой `/speckit.plan`. Подробности выполнения смотрите в `.specify/templates/commands/plan.md`.
 
-## Summary
+## Краткое описание
 
-[Extract from feature spec: primary requirement + technical approach from research]
+[Извлечение из спецификации: ключевое требование и технический подход из исследования]
 
-## Technical Context
+## Технический контекст
 
 <!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
+  ВАЖНО: Замените содержимое этого раздела фактическими техническими сведениями.
+  Структура приведена как рекомендация и должна направлять процесс уточнения.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Язык/версия**: [например, Python 3.11, Swift 5.9, Rust 1.75 или NEEDS CLARIFICATION]  
+**Основные зависимости**: [например, FastAPI, UIKit, LLVM или NEEDS CLARIFICATION]  
+**Хранилище**: [если применимо: PostgreSQL, CoreData, файлы или N/A]  
+**Тестирование**: [например, pytest, XCTest, cargo test или NEEDS CLARIFICATION]  
+**Целевая платформа**: [например, Linux server, iOS 15+, WASM или NEEDS CLARIFICATION]  
+**Тип проекта**: [single/web/mobile — определяет структуру исходников]  
+**Цели по производительности**: [зависит от домена: 1000 req/s, 10k lines/sec, 60 fps или NEEDS CLARIFICATION]  
+**Ограничения**: [зависит от домена: <200ms p95, <100MB памяти, офлайн-режим или NEEDS CLARIFICATION]  
+**Масштаб/объём**: [зависит от домена: 10k пользователей, 1M LOC, 50 экранов или NEEDS CLARIFICATION]
 
-## Constitution Check
+## Проверка конституции
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+*GATE: необходимо пройти до исследования (Фаза 0). Повторите проверку после проектирования (Фаза 1).*
 
-[Gates determined based on constitution file]
+[Гейты определяются на основе файла конституции]
 
-## Project Structure
+## Структура проекта
 
-### Documentation (this feature)
+### Документация (данная фича)
 
 ```
 specs/[###-feature]/
-├── plan.md              # This file (/speckit.plan command output)
-├── research.md          # Phase 0 output (/speckit.plan command)
-├── data-model.md        # Phase 1 output (/speckit.plan command)
-├── quickstart.md        # Phase 1 output (/speckit.plan command)
-├── contracts/           # Phase 1 output (/speckit.plan command)
-└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+├── plan.md              # Этот файл (результат команды /speckit.plan)
+├── research.md          # Выход Фазы 0 (/speckit.plan)
+├── data-model.md        # Выход Фазы 1 (/speckit.plan)
+├── quickstart.md        # Выход Фазы 1 (/speckit.plan)
+├── contracts/           # Выход Фазы 1 (/speckit.plan)
+└── tasks.md             # Выход Фазы 2 (/speckit.tasks — НЕ создаётся /speckit.plan)
 ```
 
-### Source Code (repository root)
+### Исходный код (корень репозитория)
 <!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
+  ВАЖНО: Замените дерево ниже реальной структурой этой фичи. Удалите неиспользуемые
+  варианты и расширьте выбранный вариант конкретными путями (например, apps/admin,
+  packages/payments). В итоговом плане не должно оставаться пометок Option.
 -->
 
 ```
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+# [УДАЛИТЕ, ЕСЛИ НЕ НУЖНО] Вариант 1: один проект (ПО УМОЛЧАНИЮ)
 src/
 ├── models/
 ├── services/
@@ -68,7 +66,7 @@ tests/
 ├── integration/
 └── unit/
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+# [УДАЛИТЕ, ЕСЛИ НЕ НУЖНО] Вариант 2: веб-приложение (обнаружены "frontend" + "backend")
 backend/
 ├── src/
 │   ├── models/
@@ -83,22 +81,21 @@ frontend/
 │   └── services/
 └── tests/
 
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+# [УДАЛИТЕ, ЕСЛИ НЕ НУЖНО] Вариант 3: мобильное приложение + API (обнаружены "iOS/Android")
 api/
-└── [same as backend above]
+└── [аналогично backend]
 
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+ios/ или android/
+└── [платформенная структура: модули фич, пользовательские потоки, платформенные тесты]
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Выбранная структура**: [Опишите выбранный вариант и укажите реальные каталоги из дерева выше]
 
-## Complexity Tracking
+## Отслеживание сложности
 
-*Fill ONLY if Constitution Check has violations that must be justified*
+*Заполняется ТОЛЬКО если проверка конституции выявила нарушения, которые нужно обосновать*
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| Нарушение | Зачем необходимо | Почему отклонена более простая альтернатива |
+|-----------|------------------|---------------------------------------------|
+| [например, 4-й проект] | [актуальная потребность] | [почему 3 проектов недостаточно] |
+| [например, паттерн Repository] | [конкретная проблема] | [почему прямой доступ к БД не подходит] |

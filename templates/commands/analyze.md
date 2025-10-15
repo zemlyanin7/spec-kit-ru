@@ -1,187 +1,126 @@
 ---
-description: Perform a non-destructive cross-artifact consistency and quality analysis across spec.md, plan.md, and tasks.md after task generation.
+description: Провести ненарушающий анализ согласованности и качества между spec.md, plan.md и tasks.md после генерации задач.
 scripts:
   sh: scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
   ps: scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks
 ---
 
-## User Input
+## Ввод пользователя
 
 ```text
 $ARGUMENTS
 ```
 
-You **MUST** consider the user input before proceeding (if not empty).
+Вы **ОБЯЗАНЫ** учитывать ввод пользователя перед началом анализа (если он не пустой).
 
-## Goal
+## Цель
 
-Identify inconsistencies, duplications, ambiguities, and underspecified items across the three core artifacts (`spec.md`, `plan.md`, `tasks.md`) before implementation. This command MUST run only after `/tasks` has successfully produced a complete `tasks.md`.
+Обнаружить несогласованности, дубли, двусмысленности и недоопределённые области в трёх основных артефактах (`spec.md`, `plan.md`, `tasks.md`) до начала реализации. Команда **запускается только после** успешного выполнения `/tasks`, когда `tasks.md` уже сформирован.
 
-## Operating Constraints
+## Ограничения
 
-**STRICTLY READ-ONLY**: Do **not** modify any files. Output a structured analysis report. Offer an optional remediation plan (user must explicitly approve before any follow-up editing commands would be invoked manually).
+- **Только чтение**: Никаких изменений файлов. Выдайте структурированный отчёт и при желании предложите план исправлений (пользователь должен явно подтвердить дальнейшие действия).
+- **Приоритет конституции**: `/memory/constitution.md` является непреложным источником правил. Конфликты с принципами автоматически получают уровень CRITICAL и должны устраняться в спецификации/плане/списке задач. Изменение самой конституции — отдельный процесс вне `/analyze`.
 
-**Constitution Authority**: The project constitution (`/memory/constitution.md`) is **non-negotiable** within this analysis scope. Constitution conflicts are automatically CRITICAL and require adjustment of the spec, plan, or tasks—not dilution, reinterpretation, or silent ignoring of the principle. If a principle itself needs to change, that must occur in a separate, explicit constitution update outside `/analyze`.
+## Шаги выполнения
 
-## Execution Steps
+### 1. Инициализация контекста
 
-### 1. Initialize Analysis Context
-
-Run `{SCRIPT}` once from repo root and parse JSON for FEATURE_DIR and AVAILABLE_DOCS. Derive absolute paths:
+Запустите `{SCRIPT}` из корня репозитория и извлеките из JSON значения `FEATURE_DIR` и `AVAILABLE_DOCS`. Постройте абсолютные пути:
 
 - SPEC = FEATURE_DIR/spec.md
 - PLAN = FEATURE_DIR/plan.md
 - TASKS = FEATURE_DIR/tasks.md
 
-Abort with an error message if any required file is missing (instruct the user to run missing prerequisite command).
-For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
+Если какого-либо файла нет — завершите работу с подсказкой, какую команду запустить. Экранируйте аргументы с `'` как `'I'\''m Groot'` или используйте двойные кавычки.
 
-### 2. Load Artifacts (Progressive Disclosure)
+### 2. Загрузка артефактов (по потребности)
 
-Load only the minimal necessary context from each artifact:
+Считывайте только необходимый минимум:
 
-**From spec.md:**
+- **spec.md**: обзор/контекст, функциональные и нефункциональные требования, пользовательские истории, Edge Cases.
+- **plan.md**: архитектура/стек, модель данных, фазы, технические ограничения.
+- **tasks.md**: идентификаторы задач, описания, фазы, метки [P], пути к файлам.
+- **Конституция**: весь `/memory/constitution.md` для проверки принципов.
 
-- Overview/Context
-- Functional Requirements
-- Non-Functional Requirements
-- User Stories
-- Edge Cases (if present)
+### 3. Построение семантических моделей
 
-**From plan.md:**
+Создайте внутренние представления (не выводите их напрямую):
 
-- Architecture/stack choices
-- Data Model references
-- Phases
-- Technical constraints
+- Каталог требований (FN/NFR) с устойчивыми ключами (slug по формулировке).
+- Каталог пользовательских действий / историй и критериев.
+- Покрытие задач: сопоставьте каждую задачу с требованиями/историями (по ключевым словам/ID).
+- Множество правил конституции (принципы и формулировки MUST/SHOULD).
 
-**From tasks.md:**
+### 4. Поиск проблем (фокус на ключевом)
 
-- Task IDs
-- Descriptions
-- Phase grouping
-- Parallel markers [P]
-- Referenced file paths
+Ограничьте обнаруженные пункты 50 строками в отчёте, остальное упомяните в сводке.
 
-**From constitution:**
+- **Дубли**: близкие формулировки требований → отметьте, какую оставить.
+- **Двусмысленности**: размытые прилагательные без метрик, незаполненные плейсхолдеры.
+- **Недоопределённость**: требования без конкретного результата, истории без связи с критериям, задачи с файлами, не описанными в спецификации/плане.
+- **Конфликты с конституцией**: любые нарушения MUST-положений → CRITICAL.
+- **Покрытие**: требования без задач, задачи без требований, нефункциональные требования без задач.
+- **Несогласованность**: разная терминология, сущности в планe, отсутствующие в спецификации, противоречивый порядок задач, conflicting tech choices.
 
-- Load `/memory/constitution.md` for principle validation
+### 5. Оценка серьёзности
 
-### 3. Build Semantic Models
+- **CRITICAL**: нарушение конституции, отсутствующее ключевое требование, нулевая покрываемость критичного требования.
+- **HIGH**: конфликтующие или дублирующие требования, неоднозначная безопасность/производительность, невалидный acceptance критерий.
+- **MEDIUM**: терминологические расхождения, отсутствие задач по НФТ, неуточнённые edge cases.
+- **LOW**: стилистика, лёгкие дубли, не влияющие на выполнение.
 
-Create internal representations (do not include raw artifacts in output):
+### 6. Отчёт об анализе
 
-- **Requirements inventory**: Each functional + non-functional requirement with a stable key (derive slug based on imperative phrase; e.g., "User can upload file" → `user-can-upload-file`)
-- **User story/action inventory**: Discrete user actions with acceptance criteria
-- **Task coverage mapping**: Map each task to one or more requirements or stories (inference by keyword / explicit reference patterns like IDs or key phrases)
-- **Constitution rule set**: Extract principle names and MUST/SHOULD normative statements
+Сформируйте Markdown-отчёт:
 
-### 4. Detection Passes (Token-Efficient Analysis)
+#### Specification Analysis Report
 
-Focus on high-signal findings. Limit to 50 findings total; aggregate remainder in overflow summary.
+| ID | Категория | Severity | Локация | Сводка | Рекомендация |
+|----|-----------|----------|---------|--------|---------------|
+| A1 | Duplication | HIGH | spec.md:L120-134 | ... | ... |
 
-#### A. Duplication Detection
+**Сводка покрытия**:
 
-- Identify near-duplicate requirements
-- Mark lower-quality phrasing for consolidation
+| Requirement Key | Есть задача? | Task IDs | Примечания |
+|-----------------|--------------|----------|------------|
 
-#### B. Ambiguity Detection
+**Нарушения конституции** (если есть)
 
-- Flag vague adjectives (fast, scalable, secure, intuitive, robust) lacking measurable criteria
-- Flag unresolved placeholders (TODO, TKTK, ???, `<placeholder>`, etc.)
+**Задачи без требований** (если есть)
 
-#### C. Underspecification
+**Метрики**:
 
-- Requirements with verbs but missing object or measurable outcome
-- User stories missing acceptance criteria alignment
-- Tasks referencing files or components not defined in spec/plan
+- Всего требований
+- Всего задач
+- % покрытия (требования с ≥1 задачей)
+- Количество двусмысленностей
+- Количество дублей
+- Количество критичных проблем
 
-#### D. Constitution Alignment
+### 7. Следующие действия
 
-- Any requirement or plan element conflicting with a MUST principle
-- Missing mandated sections or quality gates from constitution
+В конце отчёта добавьте блок Next Actions:
 
-#### E. Coverage Gaps
+- Если есть CRITICAL — рекомендовать исправить до `/speckit.implement`.
+- Если только LOW/MEDIUM — указать, что можно двигаться дальше, но перечислить улучшения.
+- Предложить конкретные команды/действия: например, повторное уточнение спецификации, правка плана, обновление tasks.md.
 
-- Requirements with zero associated tasks
-- Tasks with no mapped requirement/story
-- Non-functional requirements not reflected in tasks (e.g., performance, security)
+### 8. Предложение remediation
 
-#### F. Inconsistency
+Спросите: «Хотите, чтобы я предложил конкретные шаги по исправлению топ-N проблем?»  
+Никаких автоматических правок.
 
-- Terminology drift (same concept named differently across files)
-- Data entities referenced in plan but absent in spec (or vice versa)
-- Task ordering contradictions (e.g., integration tasks before foundational setup tasks without dependency note)
-- Conflicting requirements (e.g., one requires Next.js while other specifies Vue)
+## Принципы работы
 
-### 5. Severity Assignment
+- **Эффективность**: минимизировать объём загружаемых данных и выводимого текста.
+- **Повторяемость**: одинаковый ввод → одинаковый анализ.
+- **Отсутствие правок**: только чтение.
+- **Честность**: ничего не выдумывать.
+- **Приоритет конституции**: сразу помечать нарушения.
+- **Отчёт без шумов**: максимум 50 строк с находками + сводка.
+- **Корректное завершение**: если проблем нет — сообщите об этом, приведите метрики.
 
-Use this heuristic to prioritize findings:
-
-- **CRITICAL**: Violates constitution MUST, missing core spec artifact, or requirement with zero coverage that blocks baseline functionality
-- **HIGH**: Duplicate or conflicting requirement, ambiguous security/performance attribute, untestable acceptance criterion
-- **MEDIUM**: Terminology drift, missing non-functional task coverage, underspecified edge case
-- **LOW**: Style/wording improvements, minor redundancy not affecting execution order
-
-### 6. Produce Compact Analysis Report
-
-Output a Markdown report (no file writes) with the following structure:
-
-## Specification Analysis Report
-
-| ID | Category | Severity | Location(s) | Summary | Recommendation |
-|----|----------|----------|-------------|---------|----------------|
-| A1 | Duplication | HIGH | spec.md:L120-134 | Two similar requirements ... | Merge phrasing; keep clearer version |
-
-(Add one row per finding; generate stable IDs prefixed by category initial.)
-
-**Coverage Summary Table:**
-
-| Requirement Key | Has Task? | Task IDs | Notes |
-|-----------------|-----------|----------|-------|
-
-**Constitution Alignment Issues:** (if any)
-
-**Unmapped Tasks:** (if any)
-
-**Metrics:**
-
-- Total Requirements
-- Total Tasks
-- Coverage % (requirements with >=1 task)
-- Ambiguity Count
-- Duplication Count
-- Critical Issues Count
-
-### 7. Provide Next Actions
-
-At end of report, output a concise Next Actions block:
-
-- If CRITICAL issues exist: Recommend resolving before `/implement`
-- If only LOW/MEDIUM: User may proceed, but provide improvement suggestions
-- Provide explicit command suggestions: e.g., "Run /specify with refinement", "Run /plan to adjust architecture", "Manually edit tasks.md to add coverage for 'performance-metrics'"
-
-### 8. Offer Remediation
-
-Ask the user: "Would you like me to suggest concrete remediation edits for the top N issues?" (Do NOT apply them automatically.)
-
-## Operating Principles
-
-### Context Efficiency
-
-- **Minimal high-signal tokens**: Focus on actionable findings, not exhaustive documentation
-- **Progressive disclosure**: Load artifacts incrementally; don't dump all content into analysis
-- **Token-efficient output**: Limit findings table to 50 rows; summarize overflow
-- **Deterministic results**: Rerunning without changes should produce consistent IDs and counts
-
-### Analysis Guidelines
-
-- **NEVER modify files** (this is read-only analysis)
-- **NEVER hallucinate missing sections** (if absent, report them accurately)
-- **Prioritize constitution violations** (these are always CRITICAL)
-- **Use examples over exhaustive rules** (cite specific instances, not generic patterns)
-- **Report zero issues gracefully** (emit success report with coverage statistics)
-
-## Context
+## Контекст
 
 {ARGS}

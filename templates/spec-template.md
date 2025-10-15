@@ -1,115 +1,115 @@
-# Feature Specification: [FEATURE NAME]
+# Спецификация фичи: [FEATURE NAME]
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
-**Status**: Draft  
-**Input**: User description: "$ARGUMENTS"
+**Ветка фичи**: `[###-feature-name]`  
+**Создано**: [DATE]  
+**Статус**: Draft  
+**Входные данные**: Описание пользователя — "$ARGUMENTS"
 
-## User Scenarios & Testing *(mandatory)*
+## Пользовательские сценарии и тестирование *(обязательно)*
 
 <!--
-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+  ВАЖНО: Пользовательские истории должны быть ПРИОРИТЕТНЫМИ и представлять
+  собой пользовательские пути в порядке важности. Каждая история/путь должна
+  быть НЕЗАВИСИМО ТЕСТИРУЕМОЙ — то есть, реализовав всего ОДНУ историю, вы
+  получаете работоспособный MVP, который приносит пользу.
   
-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
-  Think of each story as a standalone slice of functionality that can be:
-  - Developed independently
-  - Tested independently
-  - Deployed independently
-  - Demonstrated to users independently
+  Присваивайте приоритеты (P1, P2, P3 и т.д.). Рассматривайте каждую историю как
+  самостоятельный срез функциональности, который можно:
+  - Разрабатывать независимо
+  - Тестировать независимо
+  - Доставлять независимо
+  - Демонстрировать пользователям независимо
 -->
 
-### User Story 1 - [Brief Title] (Priority: P1)
+### User Story 1 — [краткий заголовок] (Приоритет: P1)
 
-[Describe this user journey in plain language]
+[Опишите этот пользовательский сценарий простым языком]
 
-**Why this priority**: [Explain the value and why it has this priority level]
+**Почему такой приоритет**: [Объясните ценность и причину выбранного уровня приоритета]
 
-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+**Независимый тест**: [Опишите, как можно протестировать историю отдельно — например, «Полностью проверяется через [действие], приносит [значение]»]
 
-**Acceptance Scenarios**:
+**Сценарии приёмочного тестирования**:
 
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **Given** [начальные условия], **When** [действие], **Then** [ожидаемый результат]
+2. **Given** [начальные условия], **When** [действие], **Then** [ожидаемый результат]
 
 ---
 
-### User Story 2 - [Brief Title] (Priority: P2)
+### User Story 2 — [краткий заголовок] (Приоритет: P2)
 
-[Describe this user journey in plain language]
+[Описание сценария]
 
-**Why this priority**: [Explain the value and why it has this priority level]
+**Почему такой приоритет**: [Обоснование ценности и приоритета]
 
-**Independent Test**: [Describe how this can be tested independently]
+**Независимый тест**: [Как проверить историю отдельно]
 
-**Acceptance Scenarios**:
+**Сценарии приёмочного тестирования**:
 
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-
----
-
-### User Story 3 - [Brief Title] (Priority: P3)
-
-[Describe this user journey in plain language]
-
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **Given** [начальные условия], **When** [действие], **Then** [ожидаемый результат]
 
 ---
 
-[Add more user stories as needed, each with an assigned priority]
+### User Story 3 — [краткий заголовок] (Приоритет: P3)
 
-### Edge Cases
+[Описание сценария]
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right edge cases.
--->
+**Почему такой приоритет**: [Обоснование]
 
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+**Независимый тест**: [Как проверить историю отдельно]
 
-## Requirements *(mandatory)*
+**Сценарии приёмочного тестирования**:
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
+1. **Given** [начальные условия], **When** [действие], **Then** [ожидаемый результат]
 
-### Functional Requirements
+---
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+[Добавьте дополнительные истории по необходимости, каждая с приоритетом]
 
-*Example of marking unclear requirements:*
-
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
-
-### Key Entities *(include if feature involves data)*
-
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
-
-## Success Criteria *(mandatory)*
+### Крайние случаи
 
 <!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
+  ВАЖНО: Содержимое ниже — примеры-заглушки. Замените их реальными крайними
+  случаями, относящимися к вашей фиче.
 -->
 
-### Measurable Outcomes
+- Что происходит при [граничное условие]?
+- Как система обрабатывает [сценарий ошибки]?
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+## Требования *(обязательно)*
+
+<!--
+  ВАЖНО: Ниже приведены примеры-заглушки. Замените требованиями вашей фичи.
+-->
+
+### Функциональные требования
+
+- **FR-001**: Система ДОЛЖНА [конкретная возможность, напр. «позволять пользователям создавать учетные записи»]
+- **FR-002**: Система ДОЛЖНА [конкретная возможность, напр. «валидировать адреса электронной почты»]  
+- **FR-003**: Пользователи ДОЛЖНЫ иметь возможность [ключевое действие]
+- **FR-004**: Система ДОЛЖНА [требование к данным, напр. «сохранять пользовательские настройки»]
+- **FR-005**: Система ДОЛЖНА [поведение, напр. «протоколировать события безопасности»]
+
+*Пример пометки на уточнение:*
+
+- **FR-006**: Система ДОЛЖНА аутентифицировать пользователей с помощью [NEEDS CLARIFICATION: не указано — email/password, SSO, OAuth?]
+- **FR-007**: Система ДОЛЖНА хранить пользовательские данные [NEEDS CLARIFICATION: срок хранения не определён]
+
+### Ключевые сущности *(если фича касается данных)*
+
+- **[Сущность 1]**: [Что представляет, ключевые атрибуты без технической реализации]
+- **[Сущность 2]**: [Что представляет, связи с другими сущностями]
+
+## Критерии успеха *(обязательно)*
+
+<!--
+  ВАЖНО: Определите измеримые критерии успеха.
+  Они должны быть технологически нейтральными и проверяемыми.
+-->
+
+### Измеримые результаты
+
+- **SC-001**: [Измеримая метрика, напр. «Пользователь завершает оформление заказа менее чем за 2 минуты»]
+- **SC-002**: [Измеримая метрика, напр. «Система обслуживает 1000 одновременных пользователей без деградации»]
+- **SC-003**: [Метрика удовлетворённости, напр. «90% пользователей успешно завершают основную задачу с первой попытки»]
+- **SC-004**: [Бизнес-метрика, напр. «Сократить обращения в поддержку по теме [X] на 50%»]
